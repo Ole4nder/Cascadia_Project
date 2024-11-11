@@ -4,5 +4,7 @@ public enum TypeCard {
   A,
   B,
   C,
-  D
+  D,
+  FAMILIAL,
+  INTERMEDIATE
 }

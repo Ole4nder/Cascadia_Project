@@ -1,6 +1,8 @@
-package fr.uge.animal;
+package fr.uge.animal.token;
 
+import fr.uge.animal.Animals;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +27,6 @@ public class AnimalToken {
    */
   public void remove(Animals animal) {
     Objects.requireNonNull(animal);
-
     tokenList.remove(animal);
   }
 
@@ -36,5 +37,12 @@ public class AnimalToken {
    */
   public List<Animals> tokenList() {
     return List.copyOf(tokenList);
+  }
+
+  /**
+   * Shuffles the list of animals in place.
+   */
+  public void shuffleList() {
+    Collections.shuffle(tokenList);
   }
 }

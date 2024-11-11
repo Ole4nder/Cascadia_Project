@@ -5,5 +5,5 @@ public enum Animals {
   BEAR,
   FOX,
   HAWK,
-  EL;
+  ELK
 }
