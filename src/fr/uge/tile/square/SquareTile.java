@@ -9,15 +9,15 @@ public class SquareTile implements Tile {
   private final Animals animal1;
   private final Animals animal2;
   private final CordSquareTile cord;
-  private Animals animaltoken;
+  private Animals animalToken;
 
   /**
    * Create a new SquareTile with landscape, animals and coordinates.
    *
    * @param landscape, the type of landscape on the tile.
-   * @param animal1,   the first animal associated with the tile.
-   * @param animal2,   the second animal associated with the tile.
-   * @param cord,      the coordinates of the tile on the board.
+   * @param animal1, the first animal associated with the tile.
+   * @param animal2, the second animal associated with the tile.
+   * @param cord, the coordinates of the tile on the board.
    */
   public SquareTile(String landscape, Animals animal1, Animals animal2, CordSquareTile cord) {
     Objects.requireNonNull(landscape);
@@ -28,7 +28,7 @@ public class SquareTile implements Tile {
     this.animal1 = animal1;
     this.animal2 = animal2;
     this.cord = cord;
-    this.animaltoken = null;
+    this.animalToken = null;
   }
 
   /**
@@ -37,7 +37,7 @@ public class SquareTile implements Tile {
    * @return the animal token or null if no token is placed.
    */
   public Animals getAnimalToken() {
-    return animaltoken;
+    return animalToken;
   }
 
   /**
@@ -47,8 +47,8 @@ public class SquareTile implements Tile {
    */
   public void setAnimalToken(Animals animal) {
     Objects.requireNonNull(animal);
-    if (animaltoken == null) {
-      this.animaltoken = animal;
+    if (animalToken == null) {
+      this.animalToken = animal;
     }
   }
 
