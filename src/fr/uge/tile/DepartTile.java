@@ -10,6 +10,12 @@ public record DepartTile(Tile tile1, Tile tile2, Tile tile3) {
   }
 
   // TODO changer de place la méthode
+  /**
+   * Generates a single-row string representation of multiple tiles placed side by side.
+   *
+   * @param tiles the tiles to include in the row.
+   * @return a string representing the tiles aligned in a row.
+   */
   public static String generateRowOfTiles(Tile... tiles) {
     var sb = new StringBuilder();
     String[] lines = new String[3];
