@@ -38,11 +38,18 @@ public class AnimalToken {
   public List<Animals> tokenList() {
     return List.copyOf(tokenList);
   }
-
+  
   /**
-   * Shuffles the list of animals in place.
+   * Create all animal tokens.
    */
-  public void shuffleList() {
-    Collections.shuffle(tokenList);
+  public void addAllToken() {
+  	for (int i = 0; i < 20; i++) {
+  		add(Animals.BEAR);
+  		add(Animals.ELK);
+  		add(Animals.SALMON);
+  		add(Animals.FOX);
+  		add(Animals.HAWK);
+  	}
+  	Collections.shuffle(tokenList);
   }
 }

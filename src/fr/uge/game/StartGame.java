@@ -1,10 +1,22 @@
 package fr.uge.game;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
+import fr.uge.animal.Animals;
+import fr.uge.animal.card.AnimalCardImpl;
 import fr.uge.animal.token.AnimalToken;
 import fr.uge.player.Player;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
-import java.util.*;
+import fr.uge.tile.square.CordSquareTile;
+import fr.uge.tile.square.SquareTile;
 
 public class StartGame {
   private final int playersNumbers;
@@ -13,6 +25,7 @@ public class StartGame {
   private final AnimalToken animalTokens = new AnimalToken();
   private final List<Tile> tiles = new ArrayList<>();
   private final List<DepartTile> departTiles = new ArrayList<>();
+  private final AnimalCardImpl animalCards = new AnimalCardImpl();
 
   /**
    * Create a new game with players and variant type.
@@ -82,24 +95,67 @@ public class StartGame {
     Objects.requireNonNull(tile);
     tiles.remove(tile);
   }
-
-  // TODO faire la méthode + voir comment ajouter des tuiles de base pour le jeu
-  public void addAllTIle() {
-    return;
+  
+  // TODO modifier la méthode pour implémenter les hexagones.
+  /**
+   * Add all tiles from the game.
+   * 
+   * @throws IOException
+   */
+  public void addAllTile() throws IOException {
+    try(var reader = Files.newBufferedReader(Path.of("ressources/tileDescription/tilesDescription.txt"))) {
+    	String line;
+    	while ((line = reader.readLine()) != null) {
+    		var parts = line.split(" : ");
+    		
+    		for(int i = 0; i < 17; i++) { // On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles de chaque habitat.
+    			addTile(new SquareTile(parts[0], Animals.animalNameToEnums(parts[1]), Animals.animalNameToEnums(parts[2]), new CordSquareTile(-1, -1)));
+    		}
+    	}
+    }
+    Collections.shuffle(tiles);
   }
 
+  /**
+   * Add a depart tile.
+   * 
+   * @param departTile
+   */
   private void addDepartTile(DepartTile departTile) {
     Objects.requireNonNull(departTile);
     departTiles.add(departTile);
   }
 
-  public void addAllDepartTile() {
-    return;
-  }
-
-  /** Shuffles the tiles and depart tiles in a random order. */
-  private void shuffleTile() {
-    Collections.shuffle(tiles);
+  /**
+   * Add all depart tiles from the game.
+   * 
+   * @throws IOException
+   */
+  public void addAllDepartTile() throws IOException {
+    try(var reader = Files.newBufferedReader(Path.of("ressources/tileDescription/departTilesDescription.txt"))) {
+    	String line;
+    	while ((line = reader.readLine()) != null) {
+    		var parts = line.split(" : ");
+    		addDepartTile(new DepartTile(
+    				new SquareTile(parts[1], Animals.animalNameToEnums(parts[2]), Animals.animalNameToEnums(parts[3]), new CordSquareTile(-1, -1)),
+    				new SquareTile(parts[4], Animals.animalNameToEnums(parts[5]), Animals.animalNameToEnums(parts[6]), new CordSquareTile(-1, -1)),
+    				new SquareTile(parts[7], Animals.animalNameToEnums(parts[8]), Animals.animalNameToEnums(parts[9]), new CordSquareTile(-1, -1))
+    		));
+    	}
+    }
     Collections.shuffle(departTiles);
+  }
+  
+  /**
+   * Add all items needed for the game.
+   * 
+   * @throws IOException
+   */
+  public void initGame() throws IOException {
+  	addAllDepartTile();
+  	addAllPlayer();
+  	addAllTile();
+  	animalTokens.addAllToken();
+  	animalCards.addAllAnimalCard();
   }
 }

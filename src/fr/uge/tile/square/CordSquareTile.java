@@ -7,8 +7,8 @@ package fr.uge.tile.square;
  */
 public record CordSquareTile(int upLeft, int downRight) {
   public CordSquareTile {
-    if (downRight < 0 || upLeft < 0) {
-      throw new IllegalArgumentException("CordSquareTile: downRight and upLeft must be positive");
+    if (downRight < -1 || upLeft < -1) {
+      throw new IllegalArgumentException("CordSquareTile: downRight and upLeft must be positive or equals to -1");
     }
   }
 
