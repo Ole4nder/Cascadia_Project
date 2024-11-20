@@ -101,12 +101,13 @@ public class StartGame {
    * 
    * @throws IOException
    */
-  public void addAllTile() throws IOException {
+  private void addAllTile() throws IOException {
     try(var reader = Files.newBufferedReader(Path.of("ressources/tileDescription/tilesDescription.txt"))) {
     	String line;
     	while ((line = reader.readLine()) != null) {
     		var parts = line.split(" : ");
-    		
+    		// Partie à changer pour les hexagones
+            //TODO a améliorer pour prendre en compte le nombre de joueurs
     		for(int i = 0; i < 17; i++) { // On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles de chaque habitat.
     			addTile(new SquareTile(parts[0], Animals.animalNameToEnums(parts[1]), Animals.animalNameToEnums(parts[2]), new CordSquareTile(-1, -1)));
     		}
@@ -130,7 +131,7 @@ public class StartGame {
    * 
    * @throws IOException
    */
-  public void addAllDepartTile() throws IOException {
+  private void addAllDepartTile() throws IOException {
     try(var reader = Files.newBufferedReader(Path.of("ressources/tileDescription/departTilesDescription.txt"))) {
     	String line;
     	while ((line = reader.readLine()) != null) {
