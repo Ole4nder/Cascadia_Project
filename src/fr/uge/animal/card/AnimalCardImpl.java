@@ -1,5 +1,6 @@
 package fr.uge.animal.card;
 
+import fr.uge.animal.Animals;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,8 +8,6 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-
-import fr.uge.animal.Animals;
 
 public class AnimalCardImpl {
   private final Map<Animals, HashSet<AnimalCard>> animalMap = new EnumMap<>(Animals.class);

@@ -1,14 +1,5 @@
 package fr.uge.game;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-
 import fr.uge.animal.Animals;
 import fr.uge.animal.card.AnimalCardImpl;
 import fr.uge.animal.token.AnimalToken;
@@ -17,6 +8,14 @@ import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
 import fr.uge.tile.square.CordSquareTile;
 import fr.uge.tile.square.SquareTile;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class StartGame {
   private final int playersNumbers;
