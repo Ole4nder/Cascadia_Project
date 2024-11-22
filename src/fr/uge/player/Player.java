@@ -32,4 +32,8 @@ public class Player {
     Objects.requireNonNull(neighbor);
     tileNeighborMap.computeIfAbsent(tile, _ -> new HashSet<>()).add(neighbor);
   }
+  
+  public Map<Tile, HashSet<Tile>> tileNeighborMap(){
+	  return Map.copyOf(tileNeighborMap);
+  }
 }

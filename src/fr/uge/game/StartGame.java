@@ -20,11 +20,38 @@ import java.util.Random;
 public class StartGame {
   private final int playersNumbers;
   private final GameType gameType;
-  private final List<Player> players = new ArrayList<>();
+  private final AnimalCardImpl animalCards = new AnimalCardImpl();
   private final AnimalToken animalTokens = new AnimalToken();
+  //changer les listes en liste chainées ? pour éviter de décalage mémoire avec l'ajout et suppression récurrente
+  private final List<Player> players = new ArrayList<>(); 
   private final List<Tile> tiles = new ArrayList<>();
   private final List<DepartTile> departTiles = new ArrayList<>();
-  private final AnimalCardImpl animalCards = new AnimalCardImpl();
+  private final static int MAX_TILE = 85;
+  
+  /**
+   * Return copy list of player
+   * @return List<Player>
+   */
+  public List<Player> players(){
+	  return List.copyOf(players);
+  }
+  
+  /**
+   * Return copy list of tile 
+   * @return List<Tile>
+   */
+  public List<Tile> tiles(){
+	  return List.copyOf(tiles);
+  }
+  
+  
+  /**
+   * Return copy list of departTile
+   * @return List<DepartTile>
+   */
+  public List<DepartTile> departTiles(){
+	  return List.copyOf(departTiles);
+  }
 
   /**
    * Create a new game with players and variant type.
@@ -71,8 +98,8 @@ public class StartGame {
    *
    * @return number of tiles
    */
-  private int tileGame() {
-    return playersNumbers * 20 + 3;
+  public int tileGame() {
+    return MAX_TILE - (playersNumbers * 20 + 3);
   }
 
   /**
@@ -109,7 +136,7 @@ public class StartGame {
     		// Partie à changer pour les hexagones
             //TODO a améliorer pour prendre en compte le nombre de joueurs
     		for(int i = 0; i < 17; i++) { // On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles de chaque habitat.
-    			addTile(new SquareTile(parts[0], Animals.animalNameToEnums(parts[1]), Animals.animalNameToEnums(parts[2]), new CordSquareTile(-1, -1)));
+    			addTile(new SquareTile(parts[0], Animals.animalNameToEnums(parts[1]), Animals.animalNameToEnums(parts[2]), new CordSquareTile(-1, -1), Animals.DEFAULT));
     		}
     	}
     }
@@ -137,13 +164,19 @@ public class StartGame {
     	while ((line = reader.readLine()) != null) {
     		var parts = line.split(" : ");
     		addDepartTile(new DepartTile(
-    				new SquareTile(parts[1], Animals.animalNameToEnums(parts[2]), Animals.animalNameToEnums(parts[3]), new CordSquareTile(-1, -1)),
-    				new SquareTile(parts[4], Animals.animalNameToEnums(parts[5]), Animals.animalNameToEnums(parts[6]), new CordSquareTile(-1, -1)),
-    				new SquareTile(parts[7], Animals.animalNameToEnums(parts[8]), Animals.animalNameToEnums(parts[9]), new CordSquareTile(-1, -1))
+    				new SquareTile(parts[1], Animals.animalNameToEnums(parts[2]), Animals.animalNameToEnums(parts[3]), new CordSquareTile(-1, -1), Animals.DEFAULT),
+    				new SquareTile(parts[4], Animals.animalNameToEnums(parts[5]), Animals.animalNameToEnums(parts[6]), new CordSquareTile(-1, -1), Animals.DEFAULT),
+    				new SquareTile(parts[7], Animals.animalNameToEnums(parts[8]), Animals.animalNameToEnums(parts[9]), new CordSquareTile(-1, -1), Animals.DEFAULT)
     		));
     	}
     }
     Collections.shuffle(departTiles);
+  }
+  
+  private void amountTileTypeGame() {
+	  for (int i = 0; i < tileGame(); i++) {
+		  tiles.remove(i);
+	}
   }
   
   /**
@@ -157,5 +190,6 @@ public class StartGame {
   	addAllTile();
   	animalTokens.addAllToken();
   	animalCards.addAllAnimalCard();
+  	amountTileTypeGame();
   }
 }
