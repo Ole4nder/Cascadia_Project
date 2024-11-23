@@ -6,6 +6,7 @@ public class Game {
   private final StartGame startGame;
   private final GameScore score; // nécéssaire de l'avoir ici ?
   private int numberTurns = 0;
+  private boolean replaceTokens = false;	// ajouté pour la surpopulation de 3 jetons
 
   public Game(StartGame startGame, GameScore endGame) {
     Objects.requireNonNull(startGame);
@@ -14,11 +15,9 @@ public class Game {
     this.score = endGame;
   }
   
-  
-  
   public boolean endTheGame() {
-	return startGame.tiles().isEmpty() || numberTurns == 20;
+  	return startGame.tiles().isEmpty() || numberTurns == 20;
   }
   
-  
+
 }
