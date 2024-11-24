@@ -12,8 +12,8 @@ public enum Animals {
   /**
    * Get animal's name from file and turn them into their enum.
    *
-   * @param animal
-   * @return
+   * @param animal the animal name
+   * @return Animals
    */
   public static Animals animalNameToEnums(String animal) {
     return switch (animal) {

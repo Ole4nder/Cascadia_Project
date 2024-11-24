@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Start the game with the number of players and the variant chosen by the player.
+ */
 public class StartGame {
   private static final int MAX_TILE = 85;
   private final int playersNumbers;
@@ -85,7 +88,7 @@ public class StartGame {
   /**
    * Return copy list of
    *
-   * @return List<Player>
+   * @return Player list
    */
   public List<Player> players() {
     return List.copyOf(players);
@@ -94,7 +97,7 @@ public class StartGame {
   /**
    * Return copy list of tile
    *
-   * @return List<Tile>
+   * @return Tiles list
    */
   public List<Tile> tiles() {
     return List.copyOf(tiles);
@@ -103,7 +106,7 @@ public class StartGame {
   /**
    * Return copy list of departTile
    *
-   * @return List<DepartTile>
+   * @return Starting Tiles list
    */
   public List<DepartTile> departTiles() {
     return List.copyOf(departTiles);
@@ -120,7 +123,7 @@ public class StartGame {
 
   /**
    * Getter for the type of plateau
-   * @return
+   * @return PlateauType
    */
   public PlateauType plateauType() {
     return plateauType;
@@ -143,8 +146,9 @@ public class StartGame {
     for (int i = 0; i < playersNumbers; i++) {
       var newPlayer = new Player(departTiles.get(i));
       addPlayer(newPlayer);
-      newPlayer.addDepartTile(departTiles.get(i), plateauType);
-      departTiles.remove(departTiles.get(i));
+      newPlayer.addDepartTile(departTiles.removeFirst(), plateauType);
+//      newPlayer.addDepartTile(departTiles.get(i), plateauType);
+//      departTiles.remove(departTiles.get(i));
     }
   }
 
@@ -261,7 +265,7 @@ public class StartGame {
   /**
    * Add all items needed for the game.
    *
-   * @throws IOException
+   * @throws IOException if the files are not found
    */
   public void initGame() throws IOException {
     addAllDepartTile();

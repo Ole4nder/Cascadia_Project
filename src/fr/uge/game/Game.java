@@ -7,6 +7,12 @@ import fr.uge.tile.Tile;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a game with a start configuration.
+ *
+ * startGame = the start configuration of the game.
+ * numberTurns = the number of turns played.
+ */
 public class Game {
   private final StartGame startGame;
   private int numberTurns = 0;
@@ -25,7 +31,14 @@ public class Game {
     return startGame.tiles().isEmpty() || numberTurns == 20;
   }
 
-  public void startGame() {
+  public StartGame startGame() {
+    return startGame;
+  }
+
+  /**
+   * Game loop. (Unfinished)
+   */
+  public void play() {
     while (!endTheGame()) {
       playerTurns();
     }
@@ -138,7 +151,7 @@ public class Game {
    * Get a given amount of tokens from the bag.
    *
    * @param count, amount of tokens to get.
-   * @return List<Animals>, list of obtained tokens.
+   * @return List of animals, list of obtained tokens.
    */
   public List<Animals> drawTokens(int count) {
     if (startGame.animalTokens().tokenList().size() < count) {
@@ -155,8 +168,9 @@ public class Game {
 
   /**
    * Draw new tokens if the same animal appears 4 times.
+   * @param tokens, the tokens to check.
    *
-   * @return List<Animals>, new tokens
+   * @return List of animals, new tokens
    */
   public List<Animals> overpopulation(List<Animals> tokens) {
     Map<Animals, Long> animalCounts =

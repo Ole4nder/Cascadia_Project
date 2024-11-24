@@ -6,6 +6,9 @@ import fr.uge.tile.Tile;
 import fr.uge.tile.coord.Coord;
 import java.util.*;
 
+/**
+ * Represents a player in the game.
+ */
 public class Player {
   private final DepartTile departTile; // maybe useless ?
   private final Map<Tile, Tile[]> tileNeighborMap =
@@ -26,6 +29,7 @@ public class Player {
    *
    * @param tile the main tile
    * @param neighbor the neighboring tile
+   * @param plateauType the type of plateau
    */
   public void add(Tile tile, Tile neighbor, PlateauType plateauType) {
     Objects.requireNonNull(tile);
@@ -39,6 +43,7 @@ public class Player {
    * Adds a departing tile to the player.
    *
    * @param departTile the departing tile
+   * @param plateauType the type of plateau
    */
   public void addDepartTile(DepartTile departTile, PlateauType plateauType) {
     Objects.requireNonNull(departTile);

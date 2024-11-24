@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents the animal tokens.
+ */
 public class AnimalToken {
   private final List<Animals> tokenList = new ArrayList<>();
 
@@ -33,7 +36,7 @@ public class AnimalToken {
   /**
    * Return a copy of the current list.
    *
-   * @return List<Animals>
+   * @return List of animals
    */
   public List<Animals> tokenList() {
     return List.copyOf(tokenList);

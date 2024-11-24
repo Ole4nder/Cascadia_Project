@@ -49,26 +49,52 @@ public class SquareTile implements Tile {
     return false;
   }
 
+  /**
+   * Return the animal token on the tile.
+   *
+   * @return the animal token on the tile.
+   */
   @Override
   public Animals animalToken() {
     return animalToken;
   }
 
+  /**
+   * Return the landscape of the tile.
+   *
+   * @return the landscape of the tile.
+   */
   @Override
   public String landscape() {
     return landscape;
   }
 
+  /**
+   * Return the first animal on the tile.
+   *
+   * @return the first animal on the tile.
+   */
   @Override
   public Animals animals1() {
     return animal2;
   }
 
+  /**
+   * Return the second animal on the tile.
+   *
+   * @return the second animal on the tile.
+   */
   @Override
   public Animals animals2() {
     return animal2;
   }
 
+  /**
+   * Return the position of the neighbor tile.
+   *
+   * @param tile
+   * @return the position of the neighbor tile.
+   */
   @Override
   public int neighborPosition(Tile tile) {
     if (coord.equals(tile.coord())) {
@@ -88,27 +114,33 @@ public class SquareTile implements Tile {
     return -1;
   }
 
+  /**
+   * Return the coordinates of the tile.
+   * @return the coordinates of the tile.
+   */
   @Override
   public Coord coord() {
     return coord;
   }
 
+  // TODO : pourquoi c'est l'objet qui fait le taff de se montrer dans le terminal ???
   @Override
   public String toString() {
     var sb = new StringBuilder();
     String information;
     if (animalToken == Animals.DEFAULT) {
-      information = animal1.toString() + animal2.toString();
+      information = animal1.toString() + "-" + animal2.toString();
     } else {
       information = animalToken.toString();
     }
-    sb.repeat("*", landscape.length() + information.length() + 2)
+    sb.repeat("*", landscape.length() + information.length() + 3)
         .append("\n")
         .append("*")
         .append(landscape)
+        .append(" ")
         .append(information)
         .append("*\n")
-        .repeat("*", landscape.length() + 5)
+        .repeat("*", landscape.length() + information.length() + 3)
         .append("\n");
     return sb.toString();
   }

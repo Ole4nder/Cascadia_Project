@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Represents the implementation of the AnimalCard interface.
+ */
 public class AnimalCardImpl {
   private final Map<Animals, HashSet<AnimalCard>> animalMap = new EnumMap<>(Animals.class);
 
@@ -27,7 +30,7 @@ public class AnimalCardImpl {
   /**
    * Return a copy of the map.
    *
-   * @return Map<Animals, HashSet<AnimalCard>>
+   * @return Map of key animals and value a set of animal cards.
    */
   public Map<Animals, HashSet<AnimalCard>> animalMap() {
     return Map.copyOf(animalMap);
