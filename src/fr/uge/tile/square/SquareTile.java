@@ -4,8 +4,12 @@ import fr.uge.animal.Animals;
 import fr.uge.tile.Tile;
 import java.util.Objects;
 
-public record SquareTile(String landscape, Animals animal1, Animals animal2, CordSquareTile cord, Animals animalToken) implements Tile {
-
+public class SquareTile implements Tile {
+  private final String landscape;
+  private final Animals animal1;
+  private final CordSquareTile cord;
+  private Animals animal2;
+  private Animals animalToken;
   /**
    * Create a new SquareTile with landscape, animals and coordinates.
    *
@@ -14,24 +18,30 @@ public record SquareTile(String landscape, Animals animal1, Animals animal2, Cor
    * @param animal2, the second animal associated with the tile.
    * @param cord, the coordinates of the tile on the board.
    */
-  public SquareTile {
+  public SquareTile(String landscape, Animals animal1, Animals animal2, CordSquareTile cord) {
     Objects.requireNonNull(landscape);
     Objects.requireNonNull(animal1);
     Objects.requireNonNull(animal2);
     Objects.requireNonNull(cord);
+    this.landscape = landscape;
+    this.animal1 = animal1;
+    this.animal2 = animal2;
+    this.cord = cord;
+    this.animalToken = Animals.DEFAULT;
   }
 
   /**
    * Place an animal token on the tile if no token is already placed.
-   *
    * @param animal, the animal token to place on the tile.
+   * @return true if the token was placed, false otherwise.
    */
-  public SquareTile setAnimalToken(Animals animal) {
+  public boolean setAnimalToken(Animals animal) {
     Objects.requireNonNull(animal);
-    if (animalToken ==  Animals.DEFAULT) {
-      return new SquareTile(landscape, animal1, animal2, cord, animal);
+    if(animalToken ==  Animals.DEFAULT) {
+      this.animalToken = animal;
+      return true;
     }
-	return this;
+    return false;
   }
 
   // TODO check si on peut enlever la méthode
@@ -46,5 +56,10 @@ public record SquareTile(String landscape, Animals animal1, Animals animal2, Cor
         .repeat("*", landscape.length() + 2)
         .append("\n");
     return sb.toString();
+  }
+
+  @Override
+  public CordSquareTile cord() {
+    return cord;
   }
 }
