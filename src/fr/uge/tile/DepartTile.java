@@ -18,10 +18,4 @@ public record DepartTile(Tile tile1, Tile tile2, Tile tile3) {
     Objects.requireNonNull(tile2);
     Objects.requireNonNull(tile3);
   }
-
-  // TODO check si on peut enlever la méthode
-  @Override
-  public final String toString() {
-    return tile1.toString() + tile2.toString() + tile3.toString();
-  }
 }

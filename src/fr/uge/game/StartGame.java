@@ -6,7 +6,7 @@ import fr.uge.animal.token.AnimalToken;
 import fr.uge.player.Player;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
-import fr.uge.tile.square.CordSquareTile;
+import fr.uge.tile.coord.Coord;
 import fr.uge.tile.square.SquareTile;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +26,7 @@ public class StartGame {
   private final List<Player> players = new ArrayList<>();
   private final List<Tile> tiles = new ArrayList<>();
   private final List<DepartTile> departTiles = new ArrayList<>();
+  private final PlateauType plateauType;
 
   /**
    * Create a new game with players and variant type.
@@ -33,15 +34,16 @@ public class StartGame {
    * @param playersNumbers, the number of players
    * @param gameType, the variant (family or intermediate)
    */
-  public StartGame(int playersNumbers, GameType gameType) {
+  public StartGame(int playersNumbers, GameType gameType, PlateauType plateauType) {
     this.playersNumbers = playersNumbers;
     this.gameType = gameType;
+    this.plateauType = plateauType;
   }
 
   public static GameType chooseGameVariant() {
     System.out.println(
         "Choose the game variant:\n - Type '1', 'family', or 'f' for Family\n - Type '2', 'intermediate', 'i', or 'intermediate' for Intermediate:");
-    Scanner scanner = new Scanner(System.in);
+    var scanner = new Scanner(System.in);
     var input = scanner.nextLine().trim().toLowerCase();
 
     switch (input) {
@@ -117,6 +119,14 @@ public class StartGame {
   }
 
   /**
+   * Getter for the type of plateau
+   * @return
+   */
+  public PlateauType plateauType() {
+    return plateauType;
+  }
+
+  /**
    * Add a player to the game.
    *
    * @param player, the player to add
@@ -133,7 +143,7 @@ public class StartGame {
     for (int i = 0; i < playersNumbers; i++) {
       var newPlayer = new Player(departTiles.get(i));
       addPlayer(newPlayer);
-      newPlayer.addDepartTile(departTiles.get(i));
+      newPlayer.addDepartTile(departTiles.get(i), plateauType);
       departTiles.remove(departTiles.get(i));
     }
   }
@@ -189,7 +199,7 @@ public class StartGame {
                   parts[0],
                   Animals.animalNameToEnums(parts[1]),
                   Animals.animalNameToEnums(parts[2]),
-                  new CordSquareTile(-1, -1),
+                  new Coord(-1, -1),
                   Animals.DEFAULT));
         }
       }
@@ -224,19 +234,19 @@ public class StartGame {
                     parts[1],
                     Animals.animalNameToEnums(parts[2]),
                     Animals.animalNameToEnums(parts[3]),
-                    new CordSquareTile(-1, -1),
+                    new Coord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
                     parts[4],
                     Animals.animalNameToEnums(parts[5]),
                     Animals.animalNameToEnums(parts[6]),
-                    new CordSquareTile(-1, -1),
+                    new Coord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
                     parts[7],
                     Animals.animalNameToEnums(parts[8]),
                     Animals.animalNameToEnums(parts[9]),
-                    new CordSquareTile(-1, -1),
+                    new Coord(-1, -1),
                     Animals.DEFAULT)));
       }
     }
