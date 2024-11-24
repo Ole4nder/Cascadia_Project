@@ -1,5 +1,6 @@
 package fr.uge.player;
 
+import fr.uge.animal.Animals;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
 import fr.uge.tile.square.CordSquareTile;
@@ -48,6 +49,26 @@ public class Player {
     add(departTile.tile2(), departTile.tile1());
   }
 
+  /**
+   * Adds a token on a tile.
+   *
+   * @param tile the tile to add the token to
+   * @param animal the animal token to add
+   */
+  public void addTokenOnTile(Tile tile, Animals animal) {
+    Objects.requireNonNull(tile);
+    Objects.requireNonNull(animal);
+    tileNeighborMap.keySet().stream()
+        .filter(t -> t.equals(tile.cord()))
+        .findFirst()
+        .ifPresent(t -> t.setAnimalToken(animal));
+  }
+
+  /**
+   * Returns the map of tiles and their neighbors.
+   *
+   * @return Map the map of tiles and their neighbors
+   */
   public Map<Tile, List<Tile>> tileNeighborMap() {
     return Map.copyOf(tileNeighborMap);
   }

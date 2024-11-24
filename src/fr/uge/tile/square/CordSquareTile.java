@@ -26,4 +26,15 @@ public class CordSquareTile {
     this.upLeft = newUpLeft;
     this.downRight = newDownRight;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof CordSquareTile that)) return false;
+    return upLeft == that.upLeft && downRight == that.downRight;
+  }
+
+  @Override
+  public int hashCode() {
+    return upLeft ^ downRight;
+  }
 }
