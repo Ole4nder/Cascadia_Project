@@ -1,3 +1,7 @@
 package fr.uge.tile;
 
-public interface Tile {}
+import fr.uge.tile.square.CordSquareTile;
+
+public interface Tile {
+    CordSquareTile cord(); // TODO changer cette méthode une fois l'implémentation des hexagones faite
+}

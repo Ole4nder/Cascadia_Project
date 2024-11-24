@@ -131,7 +131,9 @@ public class StartGame {
   /** Add all players to the game. */
   public void addAllPlayer() {
     for (int i = 0; i < playersNumbers; i++) {
-      addPlayer(new Player(departTiles.get(i)));
+      var newPlayer = new Player(departTiles.get(i));
+      newPlayer.addDepartTile(departTiles.get(i));
+      addPlayer(newPlayer);
       departTiles.remove(departTiles.get(i));
     }
   }
@@ -172,7 +174,7 @@ public class StartGame {
    */
   private void addAllTile() throws IOException {
     try (var reader =
-        Files.newBufferedReader(Path.of("ressources/tileDescription/tilesDescription.txt"))) {
+        Files.newBufferedReader(Path.of("src/resources/tileDescription/tilesDescription.txt"))) {
       String line;
       while ((line = reader.readLine()) != null) {
         var parts = line.split(" : ");
@@ -212,7 +214,8 @@ public class StartGame {
    */
   private void addAllDepartTile() throws IOException {
     try (var reader =
-        Files.newBufferedReader(Path.of("ressources/tileDescription/departTilesDescription.txt"))) {
+        Files.newBufferedReader(
+            Path.of("src/resources/tileDescription/departTilesDescription.txt"))) {
       String line;
       while ((line = reader.readLine()) != null) {
         var parts = line.split(" : ");

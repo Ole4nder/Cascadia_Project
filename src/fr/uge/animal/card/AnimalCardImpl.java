@@ -36,8 +36,8 @@ public class AnimalCardImpl {
   /**
    * Get variant name from file and turn them into TypeCard.
    * 
-   * @param variant
-   * @return
+   * @param variant the variant name
+   * @return TypeCard
    */
   private TypeCard cardNameToType(String variant) {
   	return switch(variant) {
@@ -54,10 +54,10 @@ public class AnimalCardImpl {
   /**
    * Add all AnimalCard from the game.
    * 
-   * @throws IOException
+   * @throws IOException nor found the file
    */
   public void addAllAnimalCard() throws IOException {
-  	try(var reader = Files.newBufferedReader(Path.of("ressources/animalCard/animalCardDescription.txt"))) {
+  	try(var reader = Files.newBufferedReader(Path.of("src/resources/animalCard/animalCardDescription.txt"))) {
     	String line;
     	while ((line = reader.readLine()) != null) {
     		var part = line.split(" : ");

@@ -2,11 +2,13 @@ package fr.uge.player;
 
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
+import fr.uge.tile.square.CordSquareTile;
 import java.util.*;
 
 public class Player {
-  private final DepartTile departTile;
-  private final Map<Tile, List<Tile>> tileNeighborMap = new HashMap<>();
+  private final DepartTile departTile; // maybe useless ?
+  private final Map<Tile, List<Tile>> tileNeighborMap =
+      new TreeMap<>(Comparator.comparing(Tile::cord, CordSquareTile.COMPARATOR));
 
   /**
    * Create a player with a specified starting tile.
@@ -28,6 +30,22 @@ public class Player {
     Objects.requireNonNull(tile);
     Objects.requireNonNull(neighbor);
     tileNeighborMap.computeIfAbsent(tile, _ -> new ArrayList<>()).add(neighbor);
+  }
+
+  /**
+   * Adds a departing tile to the player.
+   *
+   * @param departTile the departing tile
+   */
+  public void addDepartTile(DepartTile departTile) {
+    Objects.requireNonNull(departTile);
+    departTile.tile1().cord().changeCordSquareTile(0, 0);
+    departTile.tile2().cord().changeCordSquareTile(0, 1);
+    departTile.tile3().cord().changeCordSquareTile(0, 2);
+    add(departTile.tile1(), departTile.tile2());
+    add(departTile.tile2(), departTile.tile3());
+    add(departTile.tile3(), departTile.tile2());
+    add(departTile.tile2(), departTile.tile1());
   }
 
   public Map<Tile, List<Tile>> tileNeighborMap() {
