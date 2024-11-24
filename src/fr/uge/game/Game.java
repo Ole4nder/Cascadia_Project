@@ -18,10 +18,18 @@ public class Game {
     this.startGame = startGame;
   }
 
+  /**
+   * End the game if there are no more tiles or if the number of turns is 20.
+   *
+   * @return true if the game is over, false otherwise.
+   */
   public boolean endTheGame() {
     return startGame.tiles().isEmpty() || numberTurns == 20;
   }
 
+  /**
+   * Start the game.
+   */
   public void startGame() {
     for (var player : startGame.players()) {
       chooseTileToken(player);
@@ -29,24 +37,29 @@ public class Game {
     numberTurns++;
   }
 
+  /**
+   * Put a token on a tile.
+   *
+   * @param player
+   * @param tile
+   * @param token
+   */
   private void putToken(Player player, Tile tile, Animals token) {
     if(checkAddTokenOnTile(player, token)) {
-      player.addTokenOnTile(tile, token);
+      tile.setAnimalToken(token);
     }
     else {
       startGame.animalTokens().add(token);
     }
   }
 
-  private void putTile(Player player, Tile tile) {
-
-  }
+  private void putTile(Player player, Tile tile) {}
 
   private Set<Tile> wherePutTile(Player player) {
     return player.tileNeighborMap().entrySet().stream()
-            .filter(entry -> entry.getValue().size() < entry.getKey().numberNeighbors())
-            .map(Map.Entry::getKey)
-            .collect(Collectors.toSet());
+        .filter(entry -> entry.getValue().size() < entry.getKey().numberNeighbors())
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toSet());
   }
 
   private void chooseTileToken(Player player) {
