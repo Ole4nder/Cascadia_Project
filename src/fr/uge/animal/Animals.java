@@ -2,12 +2,17 @@ package fr.uge.animal;
 
 /** Different types of animals in the game. */
 public enum Animals {
-  SALMON,
-  BEAR,
-  FOX,
-  HAWK,
-  ELK,
-  DEFAULT;
+  SALMON("salmon"),
+  BEAR("bear"),
+  FOX("fox"),
+  HAWK("hawk"),
+  ELK("elk"),
+  DEFAULT("default");
+
+  private final String name;
+  Animals(String name) {
+    this.name = name;
+  }
 
   /**
    * Get animal's name from file and turn them into their enum.
@@ -26,4 +31,8 @@ public enum Animals {
       default -> throw new IllegalStateException("Unexpected value: " + animal);
     };
   }
+
+    public String getName() {
+        return name;
+    }
 }

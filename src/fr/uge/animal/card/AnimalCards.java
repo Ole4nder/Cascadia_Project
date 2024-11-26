@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Represents the implementation of the AnimalCard interface.
  */
-public class AnimalCardImpl {
+public class AnimalCards {
   private final Map<Animals, HashSet<AnimalCard>> animalMap = new EnumMap<>(Animals.class);
 
   /**
