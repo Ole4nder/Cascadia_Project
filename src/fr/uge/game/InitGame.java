@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 /** Start the game with the number of players and the variant chosen by the player. */
+//TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en static)
 public class InitGame {
   private final GameType gameType;
   private final int playersNumbers;
