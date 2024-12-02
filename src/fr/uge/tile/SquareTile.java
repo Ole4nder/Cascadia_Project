@@ -1,15 +1,13 @@
-package fr.uge.tile.square;
+package fr.uge.tile;
 
 import fr.uge.animal.Animals;
-import fr.uge.tile.Tile;
-import fr.uge.tile.coord.Coord;
 import java.util.Objects;
 
 public class SquareTile implements Tile {
   private final String landscape;
   private final Animals animal1;
   private final Animals animal2;
-  private final Coord coord;
+  private final TileCoord tileCoord;
   private Animals animalToken;
 
   /**
@@ -18,18 +16,22 @@ public class SquareTile implements Tile {
    * @param landscape, the type of landscape on the tile.
    * @param animal1, the first animal associated with the tile.
    * @param animal2, the second animal associated with the tile.
-   * @param coord, the coordinates of the tile on the board.
+   * @param tileCoord, the coordinates of the tile on the board.
    */
   public SquareTile(
-      String landscape, Animals animal1, Animals animal2, Coord coord, Animals animalToken) {
+      String landscape,
+      Animals animal1,
+      Animals animal2,
+      TileCoord tileCoord,
+      Animals animalToken) {
     Objects.requireNonNull(landscape);
     Objects.requireNonNull(animal1);
     Objects.requireNonNull(animal2);
-    Objects.requireNonNull(coord);
+    Objects.requireNonNull(tileCoord);
     this.landscape = landscape;
     this.animal1 = animal1;
     this.animal2 = animal2;
-    this.coord = coord;
+    this.tileCoord = tileCoord;
     this.animalToken = animalToken;
   }
 
@@ -92,22 +94,22 @@ public class SquareTile implements Tile {
   /**
    * Return the position of the neighbor tile.
    *
-   * @param tile
+   * @param tile the tile to check.
    * @return the position of the neighbor tile.
    */
   @Override
   public int neighborPosition(Tile tile) {
-    if (coord.equals(tile.coord())) {
+    if (tileCoord.equals(tile.coord())) {
       throw new AssertionError("The tiles are the same");
     }
-    if (tile.coord().x() == coord.x() ^ tile.coord().y() == coord.y()) {
-      if (coord.x() + 1 == tile.coord().x()) {
+    if (tile.coord().x() == tileCoord.x() ^ tile.coord().y() == tileCoord.y()) {
+      if (tileCoord.x() + 1 == tile.coord().x()) {
         return 1;
-      } else if (coord.x() - 1 == tile.coord().x()) {
+      } else if (tileCoord.x() - 1 == tile.coord().x()) {
         return 3;
-      } else if (coord.y() + 1 == tile.coord().y()) {
+      } else if (tileCoord.y() + 1 == tile.coord().y()) {
         return 2;
-      } else if (coord.y() - 1 == tile.coord().y()) {
+      } else if (tileCoord.y() - 1 == tile.coord().y()) {
         return 0;
       }
     }
@@ -116,20 +118,29 @@ public class SquareTile implements Tile {
 
   /**
    * Return the coordinates of the tile.
+   *
    * @return the coordinates of the tile.
    */
   @Override
-  public Coord coord() {
-    return coord;
+  public TileCoord coord() {
+    return tileCoord;
   }
 
   // TODO : pourquoi c'est l'objet qui fait le taff de se montrer dans le terminal ???
   @Override
   public String toString() {
+    // TODO change the place of the code
+    //    return "SquareTile{" +
+    //            "landscape='" + landscape + '\'' +
+    //            ", animal1=" + animal1 +
+    //            ", animal2=" + animal2 +
+    //            ", tileCoord=" + tileCoord +
+    //            ", animalToken=" + animalToken +
+    //            '}';
     var sb = new StringBuilder();
     String information;
     if (animalToken == Animals.DEFAULT) {
-      information = animal1.toString() + "-" + animal2.toString();
+      information = animal1 + "-" + animal2;
     } else {
       information = animalToken.toString();
     }
@@ -147,13 +158,13 @@ public class SquareTile implements Tile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(coord, landscape, animal1, animal2, animalToken);
+    return Objects.hash(tileCoord, landscape, animal1, animal2, animalToken);
   }
 
   @Override
   public boolean equals(Object obj) {
     return obj instanceof SquareTile tile
-        && tile.coord.equals(coord)
+        && tile.tileCoord.equals(tileCoord)
         && tile.landscape.equals(landscape)
         && tile.animal1.equals(animal1)
         && tile.animal2.equals(animal2)

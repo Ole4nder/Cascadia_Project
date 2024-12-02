@@ -1,12 +1,11 @@
 package fr.uge.tile;
 
 import fr.uge.animal.Animals;
-import fr.uge.tile.coord.Coord;
 
 public interface Tile {
-  Coord coord();
+  TileCoord coord();
 
-  public boolean setAnimalToken(Animals animal);
+  boolean setAnimalToken(Animals animal);
 
   Animals animalToken();
 
