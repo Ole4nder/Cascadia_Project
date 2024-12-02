@@ -126,34 +126,16 @@ public class SquareTile implements Tile {
     return tileCoord;
   }
 
-  // TODO : pourquoi c'est l'objet qui fait le taff de se montrer dans le terminal ???
+
   @Override
-  public String toString() {
-    // TODO change the place of the code
-    //    return "SquareTile{" +
-    //            "landscape='" + landscape + '\'' +
-    //            ", animal1=" + animal1 +
-    //            ", animal2=" + animal2 +
-    //            ", tileCoord=" + tileCoord +
-    //            ", animalToken=" + animalToken +
-    //            '}';
-    var sb = new StringBuilder();
-    String information;
-    if (animalToken == Animals.DEFAULT) {
-      information = animal1 + "-" + animal2;
-    } else {
-      information = animalToken.toString();
-    }
-    sb.repeat("*", landscape.length() + information.length() + 3)
-        .append("\n")
-        .append("*")
-        .append(landscape)
-        .append(" ")
-        .append(information)
-        .append("*\n")
-        .repeat("*", landscape.length() + information.length() + 3)
-        .append("\n");
-    return sb.toString();
+  public String toString(){
+    return "SquareTile{" +
+        "landscape='" + landscape + '\'' +
+        ", animal1=" + animal1 +
+        ", animal2=" + animal2 +
+        ", tileCoord=" + tileCoord +
+        ", animalToken=" + animalToken +
+        '}';
   }
 
   @Override

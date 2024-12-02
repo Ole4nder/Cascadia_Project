@@ -5,15 +5,12 @@ import fr.uge.board.players.PlayerBoard;
 import fr.uge.graphic.Graphic;
 import fr.uge.interaction.Interaction;
 import fr.uge.tile.Tile;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Represents a game with a start configuration.
- * startGame = the start configuration of the game.
- * numberTurns = the number of turns played.
- * graphic = the graphic interface of the game.
+ * Represents a game with a start configuration. startGame = the start configuration of the game.
+ * numberTurns = the number of turns played. graphic = the graphic interface of the game.
  * interaction = the interaction interface of the game.
  */
 public class Game {
@@ -42,9 +39,7 @@ public class Game {
     return initGame;
   }
 
-  /**
-   * Game loop. (Unfinished)
-   */
+  /** Game loop. (Unfinished) */
   public void play() {
     while (!endTheGame()) {
       playerTurns();
@@ -163,8 +158,8 @@ public class Game {
 
   /**
    * Draw new tokens if the same animal appears 4 times.
-   * @param tokens, the tokens to check.
    *
+   * @param tokens, the tokens to check.
    * @return List of animals, new tokens
    */
   public List<Animals> overpopulation(List<Animals> tokens) {
