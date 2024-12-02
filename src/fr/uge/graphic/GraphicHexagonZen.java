@@ -1,6 +1,6 @@
 package fr.uge.graphic;
 
-public class GraphicZen implements Graphic{
+public class GraphicHexagonZen implements Graphic{
     @Override
     public void drawGameBoard() {
 
