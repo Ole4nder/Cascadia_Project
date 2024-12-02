@@ -101,4 +101,30 @@ public class HexagonTile implements Tile {
   public int neighborPosition(Tile tile) {
     return 0;
   }
+
+  @Override
+  public String toString(){
+    return "SquareTile{" +
+            "landscape='" + landscape + '\'' +
+            ", animal1=" + animal1 +
+            ", animal2=" + animal2 +
+            ", tileCoord=" + tileCoord +
+            ", animalToken=" + animalToken +
+            '}';
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(landscape, animal1, animal2, tileCoord, animalToken);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof HexagonTile that &&
+            landscape.equals(that.landscape) &&
+            animal1 == that.animal1 &&
+            animal2 == that.animal2 &&
+            tileCoord.equals(that.tileCoord) &&
+            animalToken == that.animalToken;
+  }
 }
