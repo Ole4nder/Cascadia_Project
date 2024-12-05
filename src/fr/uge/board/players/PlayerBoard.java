@@ -9,6 +9,7 @@ import java.util.*;
 
 /** Represents a player in the game. */
 public class PlayerBoard {
+  //TODO à changer après retour
   private final Map<Tile, Tile[]> tileNeighborMap =
       new TreeMap<>(Comparator.comparing(Tile::coord, TileCoord.COMPARATOR));
 
