@@ -11,6 +11,8 @@ import fr.uge.board.players.PlayersBoards;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.SquareTile;
 import fr.uge.tile.TileCoord;
+import fr.uge.tile.TileLandscape;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,8 +23,8 @@ import java.util.Scanner;
 // TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en
 // static)
 public record InitGame(
-    int playersNumbers,
-    GameType gameType,
+        int playersNumbers,
+        GameType gameType,
     BoardType boardType,
     TileBag tileBag,
     AnimalCards animalCards,
@@ -48,15 +50,7 @@ public record InitGame(
    * @param gameType, the variant (family or intermediate)
    */
   public InitGame(int playersNumbers, GameType gameType, BoardType boardType) {
-    this(
-        playersNumbers,
-        gameType,
-        boardType,
-        new TileBag(),
-        new AnimalCards(),
-        new DepartTileBag(),
-        new PlayersBoards(),
-        new AnimalsTokenBag());
+    this(playersNumbers, gameType, boardType, new TileBag(), new AnimalCards(), new DepartTileBag(), new PlayersBoards(), new AnimalsTokenBag());
   }
 
   public static GameType chooseGameVariant() {
@@ -127,7 +121,7 @@ public record InitGame(
           // de chaque habitat.
           tileBag.add(
               (new SquareTile(
-                  parts[0],
+                      TileLandscape.landscapeNameToEnums(parts[0]),
                   Animals.animalNameToEnums(parts[1]),
                   Animals.animalNameToEnums(parts[2]),
                   new TileCoord(-1, -1),
@@ -153,19 +147,19 @@ public record InitGame(
         departTileBag.add(
             (new DepartTile(
                 new SquareTile(
-                    parts[1],
+                    TileLandscape.landscapeNameToEnums(parts[1]),
                     Animals.animalNameToEnums(parts[2]),
                     Animals.animalNameToEnums(parts[3]),
                     new TileCoord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
-                    parts[4],
+                    TileLandscape.landscapeNameToEnums(parts[4]),
                     Animals.animalNameToEnums(parts[5]),
                     Animals.animalNameToEnums(parts[6]),
                     new TileCoord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
-                    parts[7],
+                    TileLandscape.landscapeNameToEnums(parts[7]),
                     Animals.animalNameToEnums(parts[8]),
                     Animals.animalNameToEnums(parts[9]),
                     new TileCoord(-1, -1),

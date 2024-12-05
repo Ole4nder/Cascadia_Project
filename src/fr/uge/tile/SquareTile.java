@@ -4,7 +4,7 @@ import fr.uge.animal.Animals;
 import java.util.Objects;
 
 public class SquareTile implements Tile {
-  private final String landscape;
+  private final TileLandscape landscape;
   private final Animals animal1;
   private final Animals animal2;
   private final TileCoord tileCoord;
@@ -19,7 +19,7 @@ public class SquareTile implements Tile {
    * @param tileCoord, the coordinates of the tile on the board.
    */
   public SquareTile(
-      String landscape,
+      TileLandscape landscape,
       Animals animal1,
       Animals animal2,
       TileCoord tileCoord,
@@ -67,7 +67,7 @@ public class SquareTile implements Tile {
    * @return the landscape of the tile.
    */
   @Override
-  public String landscape() {
+  public TileLandscape landscape() {
     return landscape;
   }
 
@@ -126,16 +126,21 @@ public class SquareTile implements Tile {
     return tileCoord;
   }
 
-
   @Override
-  public String toString(){
-    return "SquareTile{" +
-        "landscape='" + landscape + '\'' +
-        ", animal1=" + animal1 +
-        ", animal2=" + animal2 +
-        ", tileCoord=" + tileCoord +
-        ", animalToken=" + animalToken +
-        '}';
+  public String toString() {
+    return "SquareTile{"
+        + "landscape='"
+        + landscape
+        + '\''
+        + ", animal1="
+        + animal1
+        + ", animal2="
+        + animal2
+        + ", tileCoord="
+        + tileCoord
+        + ", animalToken="
+        + animalToken
+        + '}';
   }
 
   @Override

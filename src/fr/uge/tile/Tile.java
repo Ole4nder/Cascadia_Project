@@ -9,7 +9,7 @@ public interface Tile {
 
   Animals animalToken();
 
-  String landscape();
+  TileLandscape landscape();
 
   Animals animals1();
 

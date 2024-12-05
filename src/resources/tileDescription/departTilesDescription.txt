@@ -1,5 +1,5 @@
 departTile : montagnes : bear : hawk : forêts : fox : elk : rivières : bear : salmon
 departTile : marais : salmon : hawk : rivières : bear : salmon : prairies : elk : fox
 departTile : montagnes : bear : hawk : forêts : fox : elk : rivières : bear : salmon
-departTile : rivière : bear : salmon : marais : salmon : hawk : prairies : elk : fox
+departTile : rivières : bear : salmon : marais : salmon : hawk : prairies : elk : fox
 departTile : prairies : elk : fox : montagnes : bear : hawk : forêts : fox : elk

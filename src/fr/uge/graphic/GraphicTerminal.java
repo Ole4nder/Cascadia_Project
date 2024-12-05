@@ -1,10 +1,7 @@
 package fr.uge.graphic;
 
 import fr.uge.animal.Animals;
-import fr.uge.game.OptionTileToken;
 import fr.uge.tile.Tile;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -20,17 +17,17 @@ public class GraphicTerminal implements Graphic {
     } else {
       information = tile.animalToken().toString();
     }
-    sb.repeat("*", tile.landscape().length() + information.length() + 3)
-            .append("\n")
-            .append("*")
-            .append(tile.landscape())
-            .append(" ")
-            .append(information)
-            .append("*\n")
-            .repeat("*", tile.landscape().length() + information.length() + 3)
-            .append("\n");
+    sb.repeat("*", tile.landscape().getLandscape().length() + information.length() + 3)
+        .append("\n")
+        .append("*")
+        .append(tile.landscape())
+        .append(" ")
+        .append(information)
+        .append("*\n")
+        .repeat("*", tile.landscape().getLandscape().length() + information.length() + 3)
+        .append("\n");
     return sb.toString();
-}
+  }
 
   /**
    * Generates a single-row string representation of multiple tiles placed side by side.
@@ -57,7 +54,5 @@ public class GraphicTerminal implements Graphic {
   }
 
   @Override
-  public void drawGameBoard() {
-
-  }
+  public void drawGameBoard() {}
 }
