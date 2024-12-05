@@ -14,19 +14,32 @@ import fr.uge.tile.TileCoord;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Scanner;
 
 /** Start the game with the number of players and the variant chosen by the player. */
-//TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en static)
-public class InitGame {
-  private final GameType gameType;
-  private final int playersNumbers;
-  private final BoardType boardType;
-  private final TileBag tileBag = new TileBag();
-  private final AnimalCards animalCards = new AnimalCards();
-  private final DepartTileBag departTileBag = new DepartTileBag();
-  private final PlayersBoards playersBoards = new PlayersBoards();
-  private final AnimalsTokenBag animalTokenBag = new AnimalsTokenBag();
+// TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en
+// static)
+public record InitGame(
+    int playersNumbers,
+    GameType gameType,
+    BoardType boardType,
+    TileBag tileBag,
+    AnimalCards animalCards,
+    DepartTileBag departTileBag,
+    PlayersBoards playersBoards,
+    AnimalsTokenBag animalTokenBag) {
+
+  public InitGame {
+    Objects.requireNonNull(gameType);
+    Objects.requireNonNull(playersNumbers);
+    Objects.requireNonNull(boardType);
+    Objects.requireNonNull(tileBag);
+    Objects.requireNonNull(animalCards);
+    Objects.requireNonNull(departTileBag);
+    Objects.requireNonNull(playersBoards);
+    Objects.requireNonNull(animalTokenBag);
+  }
 
   /**
    * Create a new game with players and variant type.
@@ -35,9 +48,15 @@ public class InitGame {
    * @param gameType, the variant (family or intermediate)
    */
   public InitGame(int playersNumbers, GameType gameType, BoardType boardType) {
-    this.playersNumbers = playersNumbers;
-    this.gameType = gameType;
-    this.boardType = boardType;
+    this(
+        playersNumbers,
+        gameType,
+        boardType,
+        new TileBag(),
+        new AnimalCards(),
+        new DepartTileBag(),
+        new PlayersBoards(),
+        new AnimalsTokenBag());
   }
 
   public static GameType chooseGameVariant() {
