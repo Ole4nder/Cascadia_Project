@@ -12,7 +12,6 @@ import fr.uge.tile.DepartTile;
 import fr.uge.tile.SquareTile;
 import fr.uge.tile.TileCoord;
 import fr.uge.tile.TileLandscape;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,8 +22,8 @@ import java.util.Scanner;
 // TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en
 // static)
 public record InitGame(
-        int playersNumbers,
-        GameType gameType,
+    int playersNumbers,
+    GameType gameType,
     BoardType boardType,
     TileBag tileBag,
     AnimalCards animalCards,
@@ -33,8 +32,10 @@ public record InitGame(
     AnimalsTokenBag animalTokenBag) {
 
   public InitGame {
+    if(playersNumbers < 1 || playersNumbers > 4) {
+      throw new IllegalArgumentException("Invalid number of players! Please enter a number between 1 and 4.");
+    }
     Objects.requireNonNull(gameType);
-    Objects.requireNonNull(playersNumbers);
     Objects.requireNonNull(boardType);
     Objects.requireNonNull(tileBag);
     Objects.requireNonNull(animalCards);
@@ -50,7 +51,15 @@ public record InitGame(
    * @param gameType, the variant (family or intermediate)
    */
   public InitGame(int playersNumbers, GameType gameType, BoardType boardType) {
-    this(playersNumbers, gameType, boardType, new TileBag(), new AnimalCards(), new DepartTileBag(), new PlayersBoards(), new AnimalsTokenBag());
+    this(
+        playersNumbers,
+        gameType,
+        boardType,
+        new TileBag(),
+        new AnimalCards(),
+        new DepartTileBag(),
+        new PlayersBoards(),
+        new AnimalsTokenBag());
   }
 
   public static GameType chooseGameVariant() {
@@ -82,7 +91,6 @@ public record InitGame(
     Scanner scanner = new Scanner(System.in);
     System.out.println("Enter the number of players (1-4):");
     int numberOfPlayers = scanner.nextInt();
-
     if (numberOfPlayers >= 1 && numberOfPlayers <= 4) {
       return numberOfPlayers;
     } else {
@@ -121,7 +129,7 @@ public record InitGame(
           // de chaque habitat.
           tileBag.add(
               (new SquareTile(
-                      TileLandscape.landscapeNameToEnums(parts[0]),
+                  TileLandscape.landscapeNameToEnums(parts[0]),
                   Animals.animalNameToEnums(parts[1]),
                   Animals.animalNameToEnums(parts[2]),
                   new TileCoord(-1, -1),
@@ -181,68 +189,5 @@ public record InitGame(
     animalTokenBag.addAllToken();
     addAllPlayerAndDepartTile();
     animalCards.addAllAnimalCard();
-  }
-
-  /**
-   * Getter for the players.
-   *
-   * @return PlayersBoards
-   */
-  public GameType gameType() {
-    return gameType;
-  }
-
-  /**
-   * Getter for the type of plateau.
-   *
-   * @return PlateauType
-   */
-  public BoardType boardType() {
-    return boardType;
-  }
-
-  /**
-   * Getter for the players.
-   *
-   * @return PlayersBoards
-   */
-  public PlayersBoards playersBoards() {
-    return playersBoards;
-  }
-
-  /**
-   * Getter for the tile bag.
-   *
-   * @return TileBag
-   */
-  public TileBag tileBag() {
-    return tileBag;
-  }
-
-  /**
-   * Getter for the animal cards.
-   *
-   * @return AnimalCards
-   */
-  public AnimalCards animalCards() {
-    return animalCards;
-  }
-
-  /**
-   * Getter for the animal token bag.
-   *
-   * @return AnimalsTokenBag
-   */
-  public AnimalsTokenBag animalTokenBag() {
-    return animalTokenBag;
-  }
-
-  /**
-   * Getter for the departure tile bag.
-   *
-   * @return DepartTileBag
-   */
-  public DepartTileBag departTileBag() {
-    return departTileBag;
   }
 }

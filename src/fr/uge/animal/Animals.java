@@ -14,6 +14,10 @@ public enum Animals {
     this.name = name;
   }
 
+  public String getName() {
+    return name;
+  }
+
   /**
    * Get animal's name from file and turn them into their enum.
    *
@@ -31,8 +35,4 @@ public enum Animals {
       default -> throw new IllegalStateException("Unexpected value: " + animal);
     };
   }
-
-    public String getName() {
-        return name;
-    }
 }

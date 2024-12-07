@@ -14,18 +14,7 @@ public class PlayersBoards {
    */
   public void add(PlayerBoard playerBoard) {
     Objects.requireNonNull(playerBoard);
-
     playersBoardsList.add(playerBoard);
-  }
-
-  /**
-   * Remove a player board.
-   *
-   * @param playerBoard the player board to remove.
-   */
-  public void remove(PlayerBoard playerBoard) {
-    Objects.requireNonNull(playerBoard);
-    playersBoardsList.remove(playerBoard);
   }
 
   /**
