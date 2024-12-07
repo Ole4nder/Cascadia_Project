@@ -1,7 +1,5 @@
 package fr.uge.tile;
 
-import fr.uge.animal.Animals;
-
 public enum TileLandscape {
     RIVER("river"),
     SWAMP("swamp"),
