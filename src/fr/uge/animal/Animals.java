@@ -2,12 +2,12 @@ package fr.uge.animal;
 
 /** Different types of animals in the game. */
 public enum Animals {
-  SALMON("salmon"),
-  BEAR("bear"),
-  FOX("fox"),
-  HAWK("hawk"),
-  ELK("elk"),
-  DEFAULT("default");
+  SALMON("Salmon"),
+  BEAR("Bear"),
+  FOX("Fox"),
+  HAWK("Hawk"),
+  ELK("Elk"),
+  DEFAULT("Default");
 
   private final String name;
   Animals(String name) {

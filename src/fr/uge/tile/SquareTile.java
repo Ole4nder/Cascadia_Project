@@ -78,7 +78,7 @@ public class SquareTile implements Tile {
    */
   @Override
   public Animals animals1() {
-    return animal2;
+    return animal1;
   }
 
   /**

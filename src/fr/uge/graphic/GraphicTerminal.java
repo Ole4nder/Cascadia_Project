@@ -1,32 +1,23 @@
 package fr.uge.graphic;
 
-import fr.uge.animal.Animals;
 import fr.uge.tile.Tile;
 import java.util.Set;
 
-/**
- * Represents a graphic terminal that allows the user to interact with the game through the console.
- */
+/** Represents a graphic terminal to display the game board. */
 public class GraphicTerminal implements Graphic {
 
-  private static String drawOneTile(Tile tile) {
-    var sb = new StringBuilder();
-    String information;
-    if (tile.animalToken() == Animals.DEFAULT) {
-      information = tile.animals1() + "-" + tile.animals2();
-    } else {
-      information = tile.animalToken().toString();
-    }
-    sb.repeat("*", tile.landscape().getLandscape().length() + information.length() + 3)
-        .append("\n")
-        .append("*")
-        .append(tile.landscape())
-        .append(" ")
-        .append(information)
-        .append("*\n")
-        .repeat("*", tile.landscape().getLandscape().length() + information.length() + 3)
-        .append("\n");
-    return sb.toString();
+  public static String drawOneTile(Tile tile) {
+    return """
+        +-----+
+        |  %s  |
+        |  %s |
+        |  %s  |
+        +-----+
+        """
+        .formatted(
+            tile.landscape().name().charAt(0),
+            "" + tile.animals1().getName().charAt(0) + tile.animals2().getName().charAt(0),
+            tile.animalToken().name().charAt(0));
   }
 
   /**
@@ -36,21 +27,39 @@ public class GraphicTerminal implements Graphic {
    * @return a string representing the tiles aligned in a row.
    */
   // TODO : fais gaffe, tu as oublié de positionner les tiles correctement (position x, y)
-  public static String drawTile(Set<Tile> tiles) {
-    var sb = new StringBuilder();
-    String[] lines = new String[3];
+  public static String drawAllTiles(Set<Tile> tiles) {
+    // Construire les lignes pour chaque partie de la tuile
+    StringBuilder topBorder = new StringBuilder();
+    StringBuilder line1 = new StringBuilder();
+    StringBuilder line2 = new StringBuilder();
+    StringBuilder line3 = new StringBuilder();
+    StringBuilder bottomBorder = new StringBuilder();
 
-    // Recuperate all tile line and add side by side
     for (Tile tile : tiles) {
-      String[] tileLines = drawOneTile(tile).split("\n");
-      for (int i = 0; i < 3; i++) {
-        lines[i] = (lines[i] == null ? "" : lines[i] + " ") + tileLines[i];
-      }
+      // Dessiner une tuile et la diviser en lignes
+      String[] lines = drawOneTile(tile).split("\n");
+
+      topBorder.append(lines[0]); // +---+
+      line1.append(lines[1]); // | %s |
+      line2.append(lines[2]); // | %s |
+      line3.append(lines[3]); // | %s |
+      bottomBorder.append(lines[4]); // +---+
     }
-    for (String line : lines) {
-      sb.append(line).append("\n");
-    }
-    return sb.toString();
+
+    // Construire l'affichage final avec toutes les lignes
+    return """
+        %s
+        %s
+        %s
+        %s
+        %s
+        """
+        .formatted(
+            topBorder.toString().trim(),
+            line1.toString().trim(),
+            line2.toString().trim(),
+            line3.toString().trim(),
+            bottomBorder.toString().trim());
   }
 
   @Override

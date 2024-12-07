@@ -13,13 +13,13 @@ public class Main {
         new InitGame(
             InitGame.chooseNumberOfPlayers(), InitGame.chooseGameVariant(), BoardType.SQUARE);
     var game = new Game(start, new GraphicTerminal(), new TerminalInteraction());
-
     game.startGame().initGame();
     System.out.println(game.startGame().animalTokenBag().tokenBag());
     System.out.println(game.startGame().tileBag().tileBag());
-    System.out.println(game.startGame().departTileBag().departTileBag());
     for (var player : game.startGame().playersBoards().playerBoardsList()) {
-      System.out.println(GraphicTerminal.drawTile(player.tileNeighborMap().keySet()));
+      System.out.println(GraphicTerminal.drawAllTiles(player.tileNeighborMap().keySet()));
+      //System.out.println(game.wherePutTile(player));
+      //System.out.println(game.wherePutToken(player));
     }
   }
 }

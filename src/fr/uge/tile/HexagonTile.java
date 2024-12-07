@@ -83,7 +83,7 @@ public class HexagonTile implements Tile {
    */
   @Override
   public Animals animals1() {
-    return animal2;
+    return animal1;
   }
 
   /**

@@ -46,6 +46,11 @@ public class PlayerBoard {
     add(departTile.tile2(), departTile.tile1(), boardType);
   }
 
+
+  public boolean allHisNeighborsFull(Tile tile) {
+    return Arrays.stream(tileNeighborMap.get(tile)).anyMatch(Objects::nonNull);
+  }
+
   /**
    * Returns the map of tiles and their neighbors.
    *

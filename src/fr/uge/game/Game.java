@@ -57,10 +57,11 @@ public class Game {
   /**
    * Put a token on a tile.
    *
-   * @param playerBoard
-   * @param tile
-   * @param token
+   * @param playerBoard the player who wants to put a token.
+   * @param tile the tile where the token will be put.
+   * @param token the token to put.
    */
+  // TODO: test this method
   private void putToken(PlayerBoard playerBoard, Tile tile, Animals token) {
     Objects.requireNonNull(playerBoard);
     Objects.requireNonNull(tile);
@@ -71,18 +72,19 @@ public class Game {
     }
   }
 
+  // TODO: test this method and implement
   private void putTile(PlayerBoard playerBoard, Tile tile) {}
 
   /**
    * Get the tiles where a player can put a tile.
    *
-   * @param playerBoard
+   * @param playerBoard the player who wants to put a tile.
    * @return Set<Tile>, the tiles where a player can put a tile.
    */
-  private Set<Tile> wherePutTile(PlayerBoard playerBoard) {
+  public Set<Tile> wherePutTile(PlayerBoard playerBoard) {
     Objects.requireNonNull(playerBoard);
     return playerBoard.tileNeighborMap().entrySet().stream()
-        .filter(entry -> entry.getValue().length < initGame.boardType().getValue())
+        .filter(entry -> playerBoard.allHisNeighborsFull(entry.getKey()))
         .map(Map.Entry::getKey)
         .collect(Collectors.toSet());
   }
@@ -90,7 +92,7 @@ public class Game {
   /**
    * Choose a tile and a token for a player.
    *
-   * @param playerBoard
+   * @param playerBoard the player who wants to choose a tile and a token.
    */
   private void chooseTileToken(PlayerBoard playerBoard) {
     Objects.requireNonNull(playerBoard);
@@ -100,10 +102,11 @@ public class Game {
   /**
    * create board option for player
    *
-   * @param tiles
-   * @param tokens
-   * @return
+   * @param tiles the tiles to choose from
+   * @param tokens  the tokens to choose from
+   * @return List<OptionTileToken> the list of all possible choices
    */
+  // TODO: test this method
   private List<OptionTileToken> createAllOption(List<Tile> tiles, List<Animals> tokens) {
     Objects.requireNonNull(tiles);
     Objects.requireNonNull(tokens);
@@ -131,7 +134,13 @@ public class Game {
         > 1;
   }
 
-  private List<Tile> wherePutToken(PlayerBoard playerBoard) {
+  /**
+   * Get the tiles where a player can put a token.
+   *
+   * @param playerBoard, the player who wants to put a token.
+   * @return List<Tile>, the tiles where a player can put a token.
+   */
+  public List<Tile> wherePutToken(PlayerBoard playerBoard) {
     return playerBoard.tileNeighborMap().keySet().stream()
         .filter(tile -> tile.animalToken() == Animals.DEFAULT)
         .toList();
@@ -149,7 +158,7 @@ public class Game {
     }
     List<Animals> drawnTokens = new ArrayList<>();
     for (int i = 0; i < count; i++) {
-      Animals token = initGame.animalTokenBag().tokenBag().get(0);
+      Animals token = initGame.animalTokenBag().tokenBag().getFirst();
       drawnTokens.add(token);
       initGame.animalTokenBag().tokenBag().remove(token);
     }
