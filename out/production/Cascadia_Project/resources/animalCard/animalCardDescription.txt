@@ -1,0 +1,22 @@
+A : salmon : Décomptez chaque banc de saumons en fonction de sa taille (le décompte augmente jusqu’à 7 saumons).
+B : salmon : Décomptez chaque banc de saumons en fonction de sa taille (le décompte augmente jusqu’à 5 saumons).
+C : salmon : Décomptez chaque banc de saumons en fonction de sa taille (de 3 à 5 saumons ou plus).
+D : salmon : Décomptez chaque banc de 3 saumons ou plus, marquez 1 point par saumon dans la ligne + 1 point pour chaque jeton Faune adjacent à la ligne (quelle que soit l’espèce).
+A : bear : Marquez des points en fonction du nombre de paires d’ours.
+B : bear : Marquez des points pour chaque groupe d’exactement 3 ours.
+C : bear : Marquez des points pour chaque groupe comportant 1, 2 ou 3 ours et obtenez 3 points de bonus si vous avez au moins un groupe de chaque taille.
+D : bear : Marquez des points pour chaque groupe comportant 2, 3 ou 4 ours.
+A : fox : Décomptez chaque renard individuellement et marquez des points en fonction du nombre d’espèces différentes qui l’entourent (y compris les autres renards).
+B : fox : Pour chaque renard, marquez des points en fonction du nombre de paires d’espèces différentes (hors renards) qui l’entourent. Comme indiqué sur la carte, les animaux d’une paire n’ont pas besoin d’être adjacents entre eux.
+C : fox : Pour chaque renard, repérez l’espèce la plus présente autour de lui (hors renards) et marquez des points en fonction du nombre d’animaux de cette espèce présents autour du renard
+D : fox : Pour chaque paire de renards, marquez des points en fonction du nombre de paires d’espèces différentes (hors renards) qui l’entourent. Comme indiqué sur la carte, les animaux d’une paire n’ont pas besoin d’être adjacents entre eux.
+A : hawk : Décomptez chaque buse isolée (sans aucune autre buse autour d’elle).
+B : hawk : Décomptez chaque buse isolée qui a au moins une autre buse en ligne de mire.
+C : hawk : Marquez 3 points pour chaque ligne de mire entre 2 buses. Une même buse peut être décomptée dans plusieurs lignes de mire.
+D : hawk : Reliez vos buses par paires en ligne droite, et marquez des points en fonction du nombre d’animaux différents qui séparent chaque paire (hors buses). Une même buse ne peut faire partie que d’une seule paire.
+A : elk : Décomptez chaque groupe de wapitis disposés en ligne droite, quelle que soit l’orientation de la ligne.
+B : elk : Décomptez chaque groupe de wapitis reproduisant une des formes indiquées sur la carte, quelle que soit son orientation
+C : elk : Décomptez chaque groupe de wapitis en fonction de sa taille, peu importe sa forme et son orientation.
+D : elk : Décomptez uniquement les groupes de wapitis disposés en cercle, comme indiqué sur la carte.
+Familial : default : Décomptez chaque groupe d'animaux d'une même espèce (deux groupes d'une même espèce ne doivent pas se toucher)
+Intermediate : default : Décomptez chaque groupe d'animaux d'une même espèce (deux groupes d'une même espèce ne doivent pas se toucher)
