@@ -8,18 +8,12 @@ import fr.uge.interaction.TerminalInteraction;
 import java.io.IOException;
 
 public class Main {
-  public static void main() throws IOException {
+  public static void main(String[] args) throws IOException {
     var start =
         new InitGame(
             InitGame.chooseNumberOfPlayers(), InitGame.chooseGameVariant(), BoardType.SQUARE);
     var game = new Game(start, new GraphicTerminal(), new TerminalInteraction());
     game.startGame().initGame();
-    System.out.println(game.startGame().animalTokenBag().tokenBag());
-    System.out.println(game.startGame().tileBag().tileBag());
-    for (var player : game.startGame().playersBoards().playerBoardsList()) {
-      System.out.println(GraphicTerminal.drawAllTiles(player.tileNeighborMap().keySet()));
-      //System.out.println(game.wherePutTile(player));
-      //System.out.println(game.wherePutToken(player));
-    }
+    game.play();
   }
 }

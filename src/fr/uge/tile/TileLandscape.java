@@ -16,6 +16,11 @@ public enum TileLandscape {
         return landscape;
     }
 
+    /**
+     * Convert a string to a TileLandscape enum.
+     * @param landscape the string to convert.
+     * @return the corresponding TileLandscape enum.
+     */
     public static TileLandscape landscapeNameToEnums(String landscape) {
         return switch (landscape) {
             case "rivières" -> TileLandscape.RIVER;
@@ -23,7 +28,6 @@ public enum TileLandscape {
             case "montagnes" -> TileLandscape.MOUNTAIN;
             case "forêts" -> TileLandscape.FOREST;
             case "prairies" -> TileLandscape.PASTURE;
-            case "default" -> TileLandscape.DEFAULT;
             default -> throw new IllegalStateException("Unexpected value: " + landscape);
         };
     }

@@ -1,6 +1,8 @@
 package fr.uge.graphic;
 
+import fr.uge.option.OptionList;
 import fr.uge.tile.Tile;
+import java.util.List;
 import java.util.Set;
 
 /** Represents a graphic terminal to display the game board. */
@@ -27,33 +29,24 @@ public class GraphicTerminal implements Graphic {
    * @return a string representing the tiles aligned in a row.
    */
   // TODO : fais gaffe, tu as oublié de positionner les tiles correctement (position x, y)
-  public static String drawAllTiles(Set<Tile> tiles) {
+  private String drawAllTiles(Set<Tile> tiles) {
     // Construire les lignes pour chaque partie de la tuile
     StringBuilder topBorder = new StringBuilder();
     StringBuilder line1 = new StringBuilder();
     StringBuilder line2 = new StringBuilder();
     StringBuilder line3 = new StringBuilder();
     StringBuilder bottomBorder = new StringBuilder();
-
     for (Tile tile : tiles) {
       // Dessiner une tuile et la diviser en lignes
       String[] lines = drawOneTile(tile).split("\n");
-
       topBorder.append(lines[0]); // +---+
       line1.append(lines[1]); // | %s |
       line2.append(lines[2]); // | %s |
       line3.append(lines[3]); // | %s |
       bottomBorder.append(lines[4]); // +---+
     }
-
     // Construire l'affichage final avec toutes les lignes
-    return """
-        %s
-        %s
-        %s
-        %s
-        %s
-        """
+    return "%s\n%s\n%s\n%s\n%s\n"
         .formatted(
             topBorder.toString().trim(),
             line1.toString().trim(),
@@ -63,5 +56,25 @@ public class GraphicTerminal implements Graphic {
   }
 
   @Override
-  public void drawGameBoard() {}
+  public void drawGameBoard(Set<Tile> tiles) {
+    System.out.println(drawAllTiles(tiles));
+  }
+
+  @Override
+  public void drawTileToTokenAndTile(List<Tile> tiles) {
+    var sb = new StringBuilder();
+    for (var tile : tiles) {
+      sb.append(tile.toString()).append("\n");
+    }
+    System.out.println(sb);
+  }
+
+  @Override
+  public void drawOptionTileToken(OptionList optionTileTokenList) {
+    var sb = new StringBuilder();
+    for (var optionTileToken : optionTileTokenList.optionTileTokenList()) {
+      sb.append(optionTileToken.toString()).append("\n");
+    }
+    System.out.println(sb);
+  }
 }

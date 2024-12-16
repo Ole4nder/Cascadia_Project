@@ -5,7 +5,7 @@ import fr.uge.animal.Animals;
 public interface Tile {
   TileCoord coord();
 
-  boolean setAnimalToken(Animals animal);
+  void setAnimalToken(Animals animal);
 
   Animals animalToken();
 

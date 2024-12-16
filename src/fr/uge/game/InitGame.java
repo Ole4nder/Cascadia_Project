@@ -32,8 +32,9 @@ public record InitGame(
     AnimalsTokenBag animalTokenBag) {
 
   public InitGame {
-    if(playersNumbers < 1 || playersNumbers > 4) {
-      throw new IllegalArgumentException("Invalid number of players! Please enter a number between 1 and 4.");
+    if (playersNumbers < 1 || playersNumbers > 4) {
+      throw new IllegalArgumentException(
+          "Invalid number of players! Please enter a number between 1 and 4.");
     }
     Objects.requireNonNull(gameType);
     Objects.requireNonNull(boardType);
@@ -115,7 +116,7 @@ public record InitGame(
    *
    * @throws IOException if the files are not found
    */
-  private void addAllTileToBag() throws IOException {
+  private void addAllTileToBag(int max) throws IOException {
     try (var reader =
         Files.newBufferedReader(Path.of("src/resources/tileDescription/tilesDescription.txt"))) {
       String line;
@@ -123,10 +124,7 @@ public record InitGame(
         var parts = line.split(" : ");
         // Partie à changer pour les hexagones
         // TODO a améliorer pour prendre en compte le nombre de joueurs
-        for (int i = 0;
-            i < 17;
-            i++) { // On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles
-          // de chaque habitat.
+        for (int i = 0; i < max; i++) {
           tileBag.add(
               (new SquareTile(
                   TileLandscape.landscapeNameToEnums(parts[0]),
@@ -184,7 +182,11 @@ public record InitGame(
    */
   public void initGame() throws IOException {
     addAllDepartTileToBag();
-    addAllTileToBag();
+    /*
+    On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles de chaque habitat.
+    ATTENTION cette valeur est uniquement vrai pour la phase 1 du jeu.
+     */
+    addAllTileToBag(17);
     // TODO a revoir
     animalTokenBag.addAllToken();
     addAllPlayerAndDepartTile();

@@ -41,19 +41,11 @@ public class HexagonTile implements Tile {
   }
 
   /**
-   * Place an animal token on the tile if no token is already placed and the animal correspond to
-   * animals in tile.
-   *
-   * @param animal, the animal token to place on the tile.
-   * @return true if the token was placed, false otherwise.
+   * Place an animal token on the tile.
    */
-  public boolean setAnimalToken(Animals animal) {
+  public void setAnimalToken(Animals animal) {
     Objects.requireNonNull(animal);
-    if (animalToken == Animals.DEFAULT && (animal == animal1 || animal == animal2)) {
-      this.animalToken = animal;
-      return true;
-    }
-    return false;
+    this.animalToken = animal;
   }
 
   /**
@@ -112,8 +104,6 @@ public class HexagonTile implements Tile {
         + animal1
         + ", animal2="
         + animal2
-        + ", tileCoord="
-        + tileCoord
         + ", animalToken="
         + animalToken
         + '}';

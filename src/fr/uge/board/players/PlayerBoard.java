@@ -4,12 +4,12 @@ import fr.uge.board.BoardType;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Represents a player in the game. */
 public class PlayerBoard {
-  //TODO à changer après retour
+  // TODO à changer après retour
   private final Map<Tile, Tile[]> tileNeighborMap =
       new TreeMap<>(Comparator.comparing(Tile::coord, TileCoord.COMPARATOR));
 
@@ -46,9 +46,36 @@ public class PlayerBoard {
     add(departTile.tile2(), departTile.tile1(), boardType);
   }
 
-
+  /**
+   * Check if the tile have all neighbors.
+   *
+   * @param tile the tile to get the neighbors
+   * @return boolean to check if the tile have all neighbors
+   */
   public boolean allHisNeighborsFull(Tile tile) {
     return Arrays.stream(tileNeighborMap.get(tile)).anyMatch(Objects::nonNull);
+  }
+
+  /**
+   * Get the tiles that have not all neighbors.
+   * @return Set of tiles
+   */
+  public Set<Tile> getTilesAsNoNeighborFull() {
+    return tileNeighborMap.keySet().stream()
+        .filter(tile -> !allHisNeighborsFull(tile))
+        .collect(Collectors.toSet());
+  }
+
+  /**
+   * Get the neighbors of a tile.
+   *
+   * @param tile the tile to get the neighbors
+   * @return List of neighbors
+   */
+  public List<Tile> getNeighbor(Tile tile) {
+    return Arrays.stream(tileNeighborMap.get(tile))
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
   }
 
   /**

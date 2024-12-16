@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class TileBag {
-  private static final int MAX_TILE_DRAWN = 4;
   private static final int MAX_TILE = 85;
   private final List<Tile> tileBag = new ArrayList<>();
 
@@ -27,11 +26,13 @@ public class TileBag {
   /**
    * Remove a tile.
    *
-   * @param tile, the tile to remove.
+   * @param index, the position of the tile in list.
    */
-  public void remove(Tile tile) {
-    Objects.requireNonNull(tile);
-    tileBag.remove(tile);
+  public Tile remove(int index) {
+    if (index < 0 || index >= tileBag.size()) {
+      throw new IllegalArgumentException("Index out of bound.");
+    }
+    return tileBag.remove(index);
   }
 
   public void shuffle() {
@@ -43,8 +44,10 @@ public class TileBag {
    *
    * @return List of tiles to draw
    */
-  public List<Tile> drawTile() {
-    return tileBag.subList(0, MAX_TILE_DRAWN);
+  public List<Tile> drawTile(int maxTileDrawn) {
+    List<Tile> tiles = new ArrayList<>(tileBag.subList(0, maxTileDrawn));
+    tileBag.subList(0, maxTileDrawn).clear();
+    return tiles;
   }
 
   /**
