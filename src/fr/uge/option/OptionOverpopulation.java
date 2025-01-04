@@ -1,6 +1,7 @@
 package fr.uge.option;
 
 import fr.uge.animal.Animals;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class OptionOverpopulation {
    */
   public void remove(Animals animal) {
     Objects.requireNonNull(animal);
-    overpopulation.computeIfPresent(animal, (key, count) -> count > 1 ? count - 1 : null);
+    overpopulation.computeIfPresent(animal, (_, count) -> count > 1 ? count - 1 : null);
   }
 
   /**

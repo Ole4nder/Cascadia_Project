@@ -2,6 +2,8 @@ package fr.uge.graphic;
 
 import fr.uge.option.OptionList;
 import fr.uge.tile.Tile;
+import fr.uge.tile.TileCoord;
+
 import java.util.List;
 import java.util.Set;
 
@@ -76,5 +78,15 @@ public class GraphicTerminal implements Graphic {
       sb.append(optionTileToken.toString()).append("\n");
     }
     System.out.println(sb);
+  }
+
+  @Override
+  public void drawCoordToPutTile(List<TileCoord> tiles) {
+    var sb = new StringBuilder();
+    for (var tile : tiles) {
+      sb.append(tile.toString()).append("\n");
+    }
+    System.out.println(sb);
+
   }
 }

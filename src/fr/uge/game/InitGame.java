@@ -10,7 +10,6 @@ import fr.uge.board.players.PlayerBoard;
 import fr.uge.board.players.PlayersBoards;
 import fr.uge.tile.DepartTile;
 import fr.uge.tile.SquareTile;
-import fr.uge.tile.TileCoord;
 import fr.uge.tile.TileLandscape;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -105,7 +104,7 @@ public record InitGame(
   public void addAllPlayerAndDepartTile() {
     for (int i = 0; i < playersNumbers; i++) {
       var newPlayer = new PlayerBoard();
-      newPlayer.addDepartTile(departTileBag.departTileBag().get(i), boardType);
+      newPlayer.addDepartTile(departTileBag.departTileBag().get(i));
       departTileBag.remove(departTileBag.departTileBag().get(i));
       playersBoards.add(newPlayer);
     }
@@ -130,7 +129,6 @@ public record InitGame(
                   TileLandscape.landscapeNameToEnums(parts[0]),
                   Animals.animalNameToEnums(parts[1]),
                   Animals.animalNameToEnums(parts[2]),
-                  new TileCoord(-1, -1),
                   Animals.DEFAULT)));
         }
       }
@@ -156,19 +154,16 @@ public record InitGame(
                     TileLandscape.landscapeNameToEnums(parts[1]),
                     Animals.animalNameToEnums(parts[2]),
                     Animals.animalNameToEnums(parts[3]),
-                    new TileCoord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
                     TileLandscape.landscapeNameToEnums(parts[4]),
                     Animals.animalNameToEnums(parts[5]),
                     Animals.animalNameToEnums(parts[6]),
-                    new TileCoord(-1, -1),
                     Animals.DEFAULT),
                 new SquareTile(
                     TileLandscape.landscapeNameToEnums(parts[7]),
                     Animals.animalNameToEnums(parts[8]),
                     Animals.animalNameToEnums(parts[9]),
-                    new TileCoord(-1, -1),
                     Animals.DEFAULT))));
       }
     }

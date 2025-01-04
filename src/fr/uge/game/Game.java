@@ -8,6 +8,7 @@ import fr.uge.option.OptionList;
 import fr.uge.option.OptionOverpopulation;
 import fr.uge.option.OptionTileToken;
 import fr.uge.tile.Tile;
+import fr.uge.tile.TileCoord;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -62,10 +63,10 @@ public class Game {
   /** Players take turns to play. */
   public void playerTurns() {
     for (var player : initGame.playersBoards().playerBoardsList()) {
-      graphic.drawGameBoard(player.tileNeighborMap().keySet());
+      graphic.drawGameBoard(new HashSet<>(player.board().values())); // TODO : change this method bad draw
       var option = asOptionTileTokenPlayer();
       updateOption(option);
-      // TODO: add tile and token to player
+      // TODO: add tile to player
       asTileTokenPlayer(player, option);
     }
     numberTurns++;
@@ -76,7 +77,6 @@ public class Game {
    *
    * @param tiles the tiles to choose from
    * @param tokens the tokens to choose from
-   * @return List<OptionTileToken> the list of all possible choices
    */
   private void createAllOption(List<Tile> tiles, List<Animals> tokens) {
     if (tiles.size() != tokens.size()) {
@@ -107,14 +107,20 @@ public class Game {
    */
   // TODO : correct this method
   private void asTileTokenPlayer(PlayerBoard playerBoard, OptionTileToken option) {
-    Tile tile;
+    TileCoord tileCoord;
     Tile tileToken;
     switch (interaction.choosePutTileToken()) {
-      case "tiles" -> {}
+      case "tile" -> {
+        // TODO : add tile to player
+        //        graphic.drawTileToTokenAndTile(wherePutToken(playerBoard));
+        //        tileToken = interaction.choosePutToken(wherePutToken(playerBoard), graphic);
+        //        putToken(playerBoard, tileToken, option.token());
+      }
       case "token" -> {
         graphic.drawTileToTokenAndTile(wherePutToken(playerBoard));
         tileToken = interaction.choosePutToken(wherePutToken(playerBoard), graphic);
-        putToken(playerBoard, tileToken, option.token());
+        putToken(tileToken, option.token());
+        // TODO : add tile to player
       }
     }
   }
@@ -122,26 +128,16 @@ public class Game {
   /**
    * Put a token on a tile.
    *
-   * @param playerBoard the player who wants to put a token.
    * @param tile the tile where the token will be put.
    * @param token the token to put.
    */
-  private void putToken(PlayerBoard playerBoard, Tile tile, Animals token) {
+  private void putToken(Tile tile, Animals token) {
+    System.out.println(checkAddTokenOnTile(tile, token));
     if (checkAddTokenOnTile(tile, token)) {
-      playerBoard.tileNeighborMap().keySet().stream()
-          .filter(t -> t.equals(tile))
-          .forEach(t -> t.setAnimalToken(token));
+      tile.setAnimalToken(token);
     } else {
       initGame.animalTokenBag().add(token);
     }
-  }
-
-  private void putTile(PlayerBoard playerBoard, Tile tile, List<Tile> neighborTiles) {
-    neighborTiles.forEach(
-        neighborTile -> {
-          playerBoard.add(tile, neighborTile, initGame.boardType());
-          playerBoard.add(neighborTile, tile, initGame.boardType());
-        });
   }
 
   /**
@@ -161,21 +157,8 @@ public class Game {
    * @return List<Tile>, the tiles where a player can put a token.
    */
   public List<Tile> wherePutToken(PlayerBoard playerBoard) {
-    return playerBoard.tileNeighborMap().keySet().stream()
+    return playerBoard.board().values().stream()
         .filter(tile -> tile.animalToken() == Animals.DEFAULT)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Get the tiles where a player can put a tile.
-   *
-   * @param playerBoard the player who wants to put a tile.
-   * @return Set<Tile>, the tiles where a player can put a tile.
-   */
-  private List<Tile> wherePutTile(PlayerBoard playerBoard) {
-    Objects.requireNonNull(playerBoard);
-    return playerBoard.tileNeighborMap().keySet().stream()
-        .filter(tile -> tile.animalToken() != Animals.DEFAULT)
         .collect(Collectors.toList());
   }
 
@@ -200,10 +183,7 @@ public class Game {
     }
   }
 
-  /**
-   * Draw new tokens if the same animal appears 4 or 3 times.
-   *
-   */
+  /** Draw new tokens if the same animal appears 4 or 3 times. */
   private void overpopulation() {
     while (true) {
       var overpopulationStatus = optionOverpopulation.asOverpopulation();
@@ -217,5 +197,4 @@ public class Game {
       }
     }
   }
-
 }

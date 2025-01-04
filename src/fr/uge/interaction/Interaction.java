@@ -4,6 +4,8 @@ import fr.uge.graphic.Graphic;
 import fr.uge.option.OptionList;
 import fr.uge.option.OptionTileToken;
 import fr.uge.tile.Tile;
+import fr.uge.tile.TileCoord;
+
 import java.util.List;
 
 public interface Interaction {
@@ -27,11 +29,12 @@ public interface Interaction {
   /**
    * Choose the tile to put the token on
    *
-   * @param tiles list of tiles
+   * @param tileCoords list of tile coordinates to put new tile
    * @param graphic the graphic
    * @return the tile chosen
    */
-  Tile choosePutTile(List<Tile> tiles, Graphic graphic);
+
+  TileCoord choosePutTile(List<TileCoord> tileCoords, Graphic graphic);
 
   /**
    * Choose the tile to put the token on

@@ -4,6 +4,7 @@ import fr.uge.graphic.Graphic;
 import fr.uge.option.OptionList;
 import fr.uge.option.OptionTileToken;
 import fr.uge.tile.Tile;
+import fr.uge.tile.TileCoord;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,7 +40,7 @@ public class TerminalInteraction implements Interaction {
 
   @Override
   public Tile choosePutToken(List<Tile> tiles, Graphic graphic) {
-    System.out.println("Choose a tile to put the token on between 1 and " + tiles.size());
+    System.out.println("Choose a Tile to put the token on between 1 and " + tiles.size());
     var scanner = new Scanner(System.in);
     var input = scanner.nextLine().trim().toLowerCase();
     graphic.drawTileToTokenAndTile(tiles);
@@ -64,17 +65,17 @@ public class TerminalInteraction implements Interaction {
   }
 
   @Override
-  public Tile choosePutTile(List<Tile> tiles, Graphic graphic) {
+  public TileCoord choosePutTile(List<TileCoord> tileCoords, Graphic graphic) {
     System.out.println(
-        "Choose a number for the tile to put on the board between 1 and " + tiles.size());
+        "Choose a number for the tile to put on the board between 1 and " + tileCoords.size());
     var scanner = new Scanner(System.in);
     var input = scanner.nextLine().trim().toLowerCase();
-    graphic.drawTileToTokenAndTile(tiles);
+    graphic.drawCoordToPutTile(tileCoords);
     var value = Integer.parseInt(input);
-    if (value >= 1 && value <= tiles.size()) {
-      return tiles.get(value - 1);
+    if (value >= 1 && value <= tileCoords.size()) {
+      return tileCoords.get(value - 1);
     }
     System.out.println("Invalid input ! Please enter a valid number.");
-    return choosePutTile(tiles, graphic);
+    return choosePutTile(tileCoords, graphic);
   }
 }
