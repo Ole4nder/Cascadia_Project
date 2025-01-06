@@ -1,27 +1,29 @@
 package fr.uge.interaction;
 
 import fr.uge.graphic.Graphic;
-import fr.uge.option.OptionList;
-import fr.uge.option.OptionTileToken;
+import fr.uge.option.StackList;
+import fr.uge.option.StackTileToken;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class TerminalInteraction implements Interaction {
 
-  public OptionTileToken choiceOption(OptionList optionList, Graphic graphic) {
-    graphic.drawOptionTileToken(optionList);
+  public StackTileToken choiceOption(StackList stackList, Graphic graphic) {
+    graphic.drawOptionTileToken(stackList);
     System.out.println(
-        "Choose a option number between 1 and " + optionList.optionTileTokenList().size());
+        "Choose a option number between 1 and " + stackList.optionTileTokenList().size());
     var scanner = new Scanner(System.in);
     var input = scanner.nextLine().trim().toLowerCase();
     var value = Integer.parseInt(input);
-    if (value >= 1 && value <= optionList.optionTileTokenList().size()) {
-      return optionList.optionTileTokenList().get(value - 1);
+    if (value >= 1 && value <= stackList.optionTileTokenList().size()) {
+      return stackList.optionTileTokenList().get(value - 1);
     }
     System.out.println("Invalid input ! Please enter a valid number.");
-    return choiceOption(optionList, graphic);
+    return choiceOption(stackList, graphic);
   }
 
   @Override
@@ -65,15 +67,16 @@ public class TerminalInteraction implements Interaction {
   }
 
   @Override
-  public TileCoord choosePutTile(List<TileCoord> tileCoords, Graphic graphic) {
+  public TileCoord choosePutTile(Set<TileCoord> tileCoords, Graphic graphic) {
     System.out.println(
         "Choose a number for the tile to put on the board between 1 and " + tileCoords.size());
+    List<TileCoord> tileCoordsList = new ArrayList<>(tileCoords);
+    graphic.drawCoordToPutTile(tileCoords);
     var scanner = new Scanner(System.in);
     var input = scanner.nextLine().trim().toLowerCase();
-    graphic.drawCoordToPutTile(tileCoords);
     var value = Integer.parseInt(input);
     if (value >= 1 && value <= tileCoords.size()) {
-      return tileCoords.get(value - 1);
+      return tileCoordsList.get(value - 1);
     }
     System.out.println("Invalid input ! Please enter a valid number.");
     return choosePutTile(tileCoords, graphic);

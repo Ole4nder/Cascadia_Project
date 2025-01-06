@@ -1,9 +1,8 @@
 package fr.uge.graphic;
 
-import fr.uge.option.OptionList;
+import fr.uge.option.StackList;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
-
 import java.util.List;
 import java.util.Set;
 
@@ -72,7 +71,7 @@ public class GraphicTerminal implements Graphic {
   }
 
   @Override
-  public void drawOptionTileToken(OptionList optionTileTokenList) {
+  public void drawOptionTileToken(StackList optionTileTokenList) {
     var sb = new StringBuilder();
     for (var optionTileToken : optionTileTokenList.optionTileTokenList()) {
       sb.append(optionTileToken.toString()).append("\n");
@@ -81,12 +80,11 @@ public class GraphicTerminal implements Graphic {
   }
 
   @Override
-  public void drawCoordToPutTile(List<TileCoord> tiles) {
+  public void drawCoordToPutTile(Set<TileCoord> tiles) {
     var sb = new StringBuilder();
     for (var tile : tiles) {
       sb.append(tile.toString()).append("\n");
     }
     System.out.println(sb);
-
   }
 }

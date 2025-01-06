@@ -2,10 +2,10 @@ package fr.uge.board.players;
 
 import fr.uge.tile.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Represents a player in the game. */
 public class PlayerBoard {
-  // TODO à changer après retour
   private final Map<TileCoord, Tile> board =
       new TreeMap<>(Comparator.comparing(TileCoord::x).thenComparing(TileCoord::y));
 
@@ -21,8 +21,17 @@ public class PlayerBoard {
     board.put(tileCoord, tile);
   }
 
-  public Set<TileCoord> getAllCoord(Tile tile) {
-    return board.keySet();
+  /**
+   * Get all neighbors cord of Tile.
+   *
+   * @return Set of the cord tile neighbors
+   */
+  public Set<TileCoord> getAllNeighborCord() {
+    return board.entrySet().stream()
+        .map(t -> t.getValue().neighborPosition(t.getKey()))
+        .flatMap(List::stream)
+        .filter(t -> !board.containsKey(t))
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -30,7 +39,6 @@ public class PlayerBoard {
    *
    * @param departTile the departing tile
    */
-  // TODO change method ?
   public void addDepartTile(DepartTile departTile) {
     Objects.requireNonNull(departTile);
     add(new TileCoord(0, 0), departTile.tile1());

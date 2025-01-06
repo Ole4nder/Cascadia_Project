@@ -9,9 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Represents the implementation of the AnimalCard interface.
- */
+/** Represents the implementation of the AnimalCard interface. */
 public class AnimalCards {
   private final Map<Animals, HashSet<AnimalCard>> animalMap = new EnumMap<>(Animals.class);
 
@@ -35,37 +33,38 @@ public class AnimalCards {
   public Map<Animals, HashSet<AnimalCard>> animalMap() {
     return Map.copyOf(animalMap);
   }
-  
+
   /**
    * Get variant name from file and turn them into TypeCard.
-   * 
+   *
    * @param variant the variant name
    * @return TypeCard
    */
   private TypeCard cardNameToType(String variant) {
-  	return switch(variant) {
-	  	case "A" -> TypeCard.A;
-	  	case "B" -> TypeCard.B;
-	  	case "C" -> TypeCard.C;
-	  	case "D" -> TypeCard.D;
-	  	case "Familial" -> TypeCard.FAMILIAL;
-	  	case "Intermediate" -> TypeCard.INTERMEDIATE;
-			default -> throw new IllegalArgumentException("Unexpected value: " + variant);
-  	};
+    return switch (variant) {
+      case "A" -> TypeCard.A;
+      case "B" -> TypeCard.B;
+      case "C" -> TypeCard.C;
+      case "D" -> TypeCard.D;
+      case "Familial" -> TypeCard.FAMILIAL;
+      case "Intermediate" -> TypeCard.INTERMEDIATE;
+      default -> throw new IllegalArgumentException("Unexpected value: " + variant);
+    };
   }
-  
+
   /**
    * Add all AnimalCard from the game.
-   * 
+   *
    * @throws IOException nor found the file
    */
   public void addAllAnimalCard() throws IOException {
-  	try(var reader = Files.newBufferedReader(Path.of("src/resources/animalCard/animalCardDescription.txt"))) {
-    	String line;
-    	while ((line = reader.readLine()) != null) {
-    		var part = line.split(" : ");
-    		add(Animals.animalNameToEnums(part[1]), new AnimalCard(cardNameToType(part[0]), part[2]));
-    	}
-  	}
+    try (var reader =
+        Files.newBufferedReader(Path.of("src/resources/animalCard/animalCardDescription.txt"))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        var part = line.split(" : ");
+        add(Animals.animalNameToEnums(part[1]), new AnimalCard(cardNameToType(part[0]), part[2]));
+      }
+    }
   }
 }

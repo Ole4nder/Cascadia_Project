@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Represent all players boards for the game.
- */
+/** Represent all players boards for the game. */
 public class PlayersBoards {
   private final List<PlayerBoard> playersBoardsList = new ArrayList<>();
 

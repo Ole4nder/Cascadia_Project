@@ -10,12 +10,9 @@ public enum Animals {
   DEFAULT("Default");
 
   private final String name;
+
   Animals(String name) {
     this.name = name;
-  }
-
-  public String getName() {
-    return name;
   }
 
   /**
@@ -34,5 +31,9 @@ public enum Animals {
       case "default" -> Animals.DEFAULT;
       default -> throw new IllegalStateException("Unexpected value: " + animal);
     };
+  }
+
+  public String getName() {
+    return name;
   }
 }

@@ -1,8 +1,6 @@
 package fr.uge.animal.card;
 
-/**
- * Represents each variant of the game rules.
- */
+/** Represents each variant of the game rules. */
 public enum TypeCard {
   A,
   B,

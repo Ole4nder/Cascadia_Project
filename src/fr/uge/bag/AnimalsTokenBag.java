@@ -28,7 +28,7 @@ public class AnimalsTokenBag {
    *
    * @param index the animal position to remove.
    */
-  public Animals remove(int  index) {
+  public Animals remove(int index) {
     if (index < 0 || index >= tokenBag.size()) {
       throw new IllegalArgumentException("Index out of bound.");
     }

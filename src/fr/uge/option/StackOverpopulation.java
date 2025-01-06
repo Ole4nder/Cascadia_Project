@@ -1,12 +1,11 @@
 package fr.uge.option;
 
 import fr.uge.animal.Animals;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class OptionOverpopulation {
+public class StackOverpopulation {
   private final Map<Animals, Long> overpopulation = new HashMap<>();
 
   /**

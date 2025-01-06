@@ -18,8 +18,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /** Start the game with the number of players and the variant chosen by the player. */
-// TODO a voir si on le change ou non, (mettre directement les champs dans game et les méthodes en
-// static)
 public record InitGame(
     int playersNumbers,
     GameType gameType,

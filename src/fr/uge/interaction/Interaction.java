@@ -1,23 +1,23 @@
 package fr.uge.interaction;
 
 import fr.uge.graphic.Graphic;
-import fr.uge.option.OptionList;
-import fr.uge.option.OptionTileToken;
+import fr.uge.option.StackList;
+import fr.uge.option.StackTileToken;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
-
 import java.util.List;
+import java.util.Set;
 
 public interface Interaction {
 
   /**
    * Choose the option of the player
    *
-   * @param optionList list of options
+   * @param stackList list of options
    * @param graphic the graphic
    * @return the player chosen
    */
-  OptionTileToken choiceOption(OptionList optionList, Graphic graphic);
+  StackTileToken choiceOption(StackList stackList, Graphic graphic);
 
   /**
    * Choose the first action to do
@@ -33,8 +33,7 @@ public interface Interaction {
    * @param graphic the graphic
    * @return the tile chosen
    */
-
-  TileCoord choosePutTile(List<TileCoord> tileCoords, Graphic graphic);
+  TileCoord choosePutTile(Set<TileCoord> tileCoords, Graphic graphic);
 
   /**
    * Choose the tile to put the token on

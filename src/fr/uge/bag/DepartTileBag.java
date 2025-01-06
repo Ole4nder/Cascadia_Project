@@ -38,9 +38,7 @@ public class DepartTileBag {
     return List.copyOf(departTileBag);
   }
 
-  /**
-   * Shuffle the depart tiles.
-   */
+  /** Shuffle the depart tiles. */
   public void shuffle() {
     Collections.shuffle(departTileBag);
   }

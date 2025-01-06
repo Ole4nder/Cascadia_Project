@@ -30,6 +30,10 @@ public enum TileLandscape {
     };
   }
 
+  /**
+   * Get the landscape of the tile.
+   * @return the landscape of the tile.
+   */
   public String getLandscape() {
     return landscape;
   }
