@@ -41,41 +41,95 @@ public class GraphicTerminal implements Graphic {
   // TODO : fais gaffe, tu as oublié de positionner les tiles correctement (position x, y)
   private String drawAllTiles(
       Map<TileCoord, Tile> tilesBoard, int minX, int maxX, int minY, int maxY) {
-    // Construire les lignes pour chaque partie de la tuile
     StringBuilder result = new StringBuilder();
-
-    // Parcourir les lignes (y) de haut en bas
     for (int y = minY; y <= maxY; y++) {
-      // Initialiser les StringBuilder pour chaque ligne de tuiles
-      StringBuilder topBorder = new StringBuilder();
-      StringBuilder line1 = new StringBuilder();
-      StringBuilder line2 = new StringBuilder();
-      StringBuilder line3 = new StringBuilder();
-      StringBuilder bottomBorder = new StringBuilder();
-
-      // Parcourir les colonnes (x) de gauche à droite
-      for (int x = minX; x <= maxX; x++) {
-        TileCoord coord = new TileCoord(x, y);
-        Tile tile = tilesBoard.get(coord);
-
-        // Dessiner la tuile ou une tuile vide si absente
-        String[] lines = (tile != null ? drawOneTile(tile) : EMPTY_TILE).split("\n");
-
-        // Ajouter chaque ligne de la tuile
-        topBorder.append(lines[0]); // +---+
-        line1.append(lines[1]); // | %s |
-        line2.append(lines[2]); // | %s |
-        line3.append(lines[3]); // | %s |
-        bottomBorder.append(lines[4]); // +---+
-        }
-      // Ajouter les lignes au résultat final
-      result.append(topBorder).append("\n");
-      result.append(line1).append("\n");
-      result.append(line2).append("\n");
-      result.append(line3).append("\n");
-      result.append(bottomBorder).append("\n");
+      result.append(drawRow(tilesBoard, y, minX, maxX));
     }
     return result.toString().trim();
+  }
+
+  /**
+   * Generates a single-row string representation of multiple tiles placed side by side.
+   *
+   * @param tilesBoard the tiles to include in the row.
+   * @param y the y-coordinate of the row.
+   * @param minX the minimum x-coordinate of the row.
+   * @param maxX the maximum x-coordinate of the row.
+   * @return a string representing the tiles aligned in a row.
+   */
+  private String drawRow(Map<TileCoord, Tile> tilesBoard, int y, int minX, int maxX) {
+    StringBuilder topBorder = new StringBuilder();
+    StringBuilder line1 = new StringBuilder();
+    StringBuilder line2 = new StringBuilder();
+    StringBuilder line3 = new StringBuilder();
+    StringBuilder bottomBorder = new StringBuilder();
+
+    for (int x = minX; x <= maxX; x++) {
+      appendTileLines(
+          tilesBoard, new TileCoord(x, y), topBorder, line1, line2, line3, bottomBorder);
+    }
+
+    return assembleRow(topBorder, line1, line2, line3, bottomBorder);
+  }
+
+  /**
+   * Appends the lines of a tile to the corresponding string builders.
+   *
+   * @param tilesBoard the tiles to include in the row.
+   * @param coord the coordinates of the tile to draw.
+   * @param topBorder the string builder for the top border of the tile.
+   * @param line1 the string builder for the first line of the tile.
+   * @param line2 the string builder for the second line of the tile.
+   * @param line3 the string builder for the third line of the tile.
+   * @param bottomBorder the string builder for the bottom border of the tile.
+   */
+  private void appendTileLines(
+      Map<TileCoord, Tile> tilesBoard,
+      TileCoord coord,
+      StringBuilder topBorder,
+      StringBuilder line1,
+      StringBuilder line2,
+      StringBuilder line3,
+      StringBuilder bottomBorder) {
+
+    String[] lines =
+        (tilesBoard.get(coord) != null ? drawOneTile(tilesBoard.get(coord)) : EMPTY_TILE)
+            .split("\n");
+
+    topBorder.append(lines[0]); // +---+
+    line1.append(lines[1]); // | %s |
+    line2.append(lines[2]); // | %s |
+    line3.append(lines[3]); // | %s |
+    bottomBorder.append(lines[4]); // +---+
+  }
+
+  /**
+   * Assembles the string representation of a row of tiles.
+   * @param topBorder the top of tile
+   * @param line1 the string builder for the first line of the tile.
+   * @param line2 the string builder for the second line of the tile.
+   * @param line3 the string builder for the third line of the tile.
+   * @param bottomBorder the bottom of tile
+   * @return the string representation of the row of tiles.
+   */
+  private String assembleRow(
+      StringBuilder topBorder,
+      StringBuilder line1,
+      StringBuilder line2,
+      StringBuilder line3,
+      StringBuilder bottomBorder) {
+
+    return topBorder
+        .append("\n")
+        .append(line1)
+        .append("\n")
+        .append(line2)
+        .append("\n")
+        .append(line3)
+        .append("\n")
+        .append(bottomBorder)
+        .append("\n")
+        .toString();
   }
 
   @Override
