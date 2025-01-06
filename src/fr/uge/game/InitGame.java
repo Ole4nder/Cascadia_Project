@@ -180,7 +180,6 @@ public record InitGame(
     ATTENTION cette valeur est uniquement vrai pour la phase 1 du jeu.
      */
     addAllTileToBag(17);
-    // TODO a revoir
     animalTokenBag.addAllToken();
     addAllPlayerAndDepartTile();
     animalCards.addAllAnimalCard();

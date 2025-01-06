@@ -4,10 +4,19 @@ import fr.uge.option.StackList;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /** Represents a graphic terminal to display the game board. */
 public class GraphicTerminal implements Graphic {
+  private static final String EMPTY_TILE =
+      """
+          +-----+
+          |     |
+          |     |
+          |     |
+          +-----+
+          """;
 
   public static String drawOneTile(Tile tile) {
     return """
@@ -26,39 +35,53 @@ public class GraphicTerminal implements Graphic {
   /**
    * Generates a single-row string representation of multiple tiles placed side by side.
    *
-   * @param tiles the tiles to include in the row.
+   * @param tilesBoard the tiles to include in the row.
    * @return a string representing the tiles aligned in a row.
    */
   // TODO : fais gaffe, tu as oublié de positionner les tiles correctement (position x, y)
-  private String drawAllTiles(Set<Tile> tiles) {
+  private String drawAllTiles(
+      Map<TileCoord, Tile> tilesBoard, int minX, int maxX, int minY, int maxY) {
     // Construire les lignes pour chaque partie de la tuile
-    StringBuilder topBorder = new StringBuilder();
-    StringBuilder line1 = new StringBuilder();
-    StringBuilder line2 = new StringBuilder();
-    StringBuilder line3 = new StringBuilder();
-    StringBuilder bottomBorder = new StringBuilder();
-    for (Tile tile : tiles) {
-      // Dessiner une tuile et la diviser en lignes
-      String[] lines = drawOneTile(tile).split("\n");
-      topBorder.append(lines[0]); // +---+
-      line1.append(lines[1]); // | %s |
-      line2.append(lines[2]); // | %s |
-      line3.append(lines[3]); // | %s |
-      bottomBorder.append(lines[4]); // +---+
+    StringBuilder result = new StringBuilder();
+
+    // Parcourir les lignes (y) de haut en bas
+    for (int y = minY; y <= maxY; y++) {
+      // Initialiser les StringBuilder pour chaque ligne de tuiles
+      StringBuilder topBorder = new StringBuilder();
+      StringBuilder line1 = new StringBuilder();
+      StringBuilder line2 = new StringBuilder();
+      StringBuilder line3 = new StringBuilder();
+      StringBuilder bottomBorder = new StringBuilder();
+
+      // Parcourir les colonnes (x) de gauche à droite
+      for (int x = minX; x <= maxX; x++) {
+        TileCoord coord = new TileCoord(x, y);
+        Tile tile = tilesBoard.get(coord);
+
+        // Dessiner la tuile ou une tuile vide si absente
+        String[] lines = (tile != null ? drawOneTile(tile) : EMPTY_TILE).split("\n");
+
+        // Ajouter chaque ligne de la tuile
+        topBorder.append(lines[0]); // +---+
+        line1.append(lines[1]); // | %s |
+        line2.append(lines[2]); // | %s |
+        line3.append(lines[3]); // | %s |
+        bottomBorder.append(lines[4]); // +---+
+        }
+      // Ajouter les lignes au résultat final
+      result.append(topBorder).append("\n");
+      result.append(line1).append("\n");
+      result.append(line2).append("\n");
+      result.append(line3).append("\n");
+      result.append(bottomBorder).append("\n");
     }
-    // Construire l'affichage final avec toutes les lignes
-    return "%s\n%s\n%s\n%s\n%s\n"
-        .formatted(
-            topBorder.toString().trim(),
-            line1.toString().trim(),
-            line2.toString().trim(),
-            line3.toString().trim(),
-            bottomBorder.toString().trim());
+    return result.toString().trim();
   }
 
   @Override
-  public void drawGameBoard(Set<Tile> tiles) {
-    System.out.println(drawAllTiles(tiles));
+  public void drawGameBoard(
+      Map<TileCoord, Tile> tilesBoard, int minX, int maxX, int minY, int maxY) {
+    System.out.println(drawAllTiles(tilesBoard, minX, maxX, minY, maxY));
   }
 
   @Override

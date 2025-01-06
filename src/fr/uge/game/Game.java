@@ -63,11 +63,9 @@ public class Game {
   /** Players take turns to play. */
   public void playerTurns() {
     for (var player : initGame.playersBoards().playerBoardsList()) {
-      graphic.drawGameBoard(
-          new HashSet<>(player.board().values())); // TODO : change this method bad draw
+      graphic.drawGameBoard(player.board(), player.getMinX(), player.getMaxX(), player.getMinY(), player.getMaxY());
       var option = asOptionTileTokenPlayer();
       updateOption(option);
-      // TODO: add tile to player
       asTileTokenPlayer(player, option);
     }
     numberTurns++;

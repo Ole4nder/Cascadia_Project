@@ -47,6 +47,42 @@ public class PlayerBoard {
   }
 
   /**
+   * Get the minimum x value of the board.
+   *
+   * @return the minimum x value of the board.
+   */
+  public int getMinX() {
+    return board.keySet().stream().mapToInt(TileCoord::x).min().orElse(0);
+  }
+
+  /**
+   * Get the maximum x value of the board.
+   *
+   * @return the maximum x value of the board.
+   */
+  public int getMaxX() {
+    return board.keySet().stream().mapToInt(TileCoord::x).max().orElse(0);
+  }
+
+  /**
+   * Get the minimum y value of the board.
+   *
+   * @return the minimum y value of the board.
+   */
+  public int getMinY() {
+    return board.keySet().stream().mapToInt(TileCoord::y).min().orElse(0);
+  }
+
+  /**
+   * Get the maximum y value of the board.
+   *
+   * @return the maximum y value of the board.
+   */
+  public int getMaxY() {
+    return board.keySet().stream().mapToInt(TileCoord::y).max().orElse(0);
+  }
+
+  /**
    * Returns the map of tiles and their neighbors.
    *
    * @return Map the map of tiles and their neighbors
