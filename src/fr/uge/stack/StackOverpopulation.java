@@ -1,4 +1,4 @@
-package fr.uge.option;
+package fr.uge.stack;
 
 import fr.uge.animal.Animals;
 import java.util.HashMap;

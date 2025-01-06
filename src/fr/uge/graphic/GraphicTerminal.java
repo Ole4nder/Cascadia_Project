@@ -1,6 +1,6 @@
 package fr.uge.graphic;
 
-import fr.uge.option.StackList;
+import fr.uge.stack.StackList;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
 import java.util.List;

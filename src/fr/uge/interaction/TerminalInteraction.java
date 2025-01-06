@@ -1,8 +1,8 @@
 package fr.uge.interaction;
 
 import fr.uge.graphic.Graphic;
-import fr.uge.option.StackList;
-import fr.uge.option.StackTileToken;
+import fr.uge.stack.StackList;
+import fr.uge.stack.StackTileToken;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
 import java.util.ArrayList;
