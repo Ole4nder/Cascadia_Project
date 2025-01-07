@@ -45,6 +45,12 @@ public class StackOverpopulation {
     return 0; // No overpopulation
   }
 
+  /**
+   * Get the animal with the highest overpopulation.
+   *
+   * @param value the value to compare.
+   * @return the animal with the highest overpopulation.
+   */
   public Animals getAnimalOverpopulation(int value) {
     return overpopulation.entrySet().stream()
         .filter(entry -> entry.getValue() >= value)
@@ -53,16 +59,8 @@ public class StackOverpopulation {
         .orElse(null);
   }
 
+  /** * Reset the overpopulation map. */
   public void reset() {
     overpopulation.clear();
-  }
-
-  /**
-   * Return a copy of the current map.
-   *
-   * @return Map of animals
-   */
-  public Map<Animals, Long> overpopulation() {
-    return Map.copyOf(overpopulation);
   }
 }
