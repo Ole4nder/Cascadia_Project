@@ -3,6 +3,7 @@ package fr.uge.board.players;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import score.ScorePlayerBoard;
 
 /** Represent all players boards for the game. */
 public class PlayersBoards {
@@ -16,6 +17,23 @@ public class PlayersBoards {
   public void add(PlayerBoard playerBoard) {
     Objects.requireNonNull(playerBoard);
     playersBoardsList.add(playerBoard);
+  }
+
+  public void updateScoreForPlayers() {
+    var finalBestScore =
+        playersBoardsList.stream()
+            .peek(
+                playerBoard ->
+                    playerBoard.updateScore(
+                        ScorePlayerBoard.findLargestLandscape(playerBoard.board())))
+            .mapToInt(PlayerBoard::score)
+            .max()
+            .orElse(0);
+
+    playersBoardsList.stream()
+        .filter(playerBoard -> playerBoard.score() == finalBestScore)
+        .findFirst()
+        .ifPresent(playerBoard -> playerBoard.updateScore(finalBestScore));
   }
 
   /**

@@ -8,6 +8,16 @@ import java.util.stream.Collectors;
 public class PlayerBoard {
   private final Map<TileCoord, Tile> board =
       new TreeMap<>(Comparator.comparing(TileCoord::x).thenComparing(TileCoord::y));
+  private int score = 0;
+
+  /**
+   * Update the score of the player with a score.
+   *
+   * @param score the score to add
+   */
+  public void updateScore(int score) {
+    this.score += score;
+  }
 
   /**
    * Adds a neighboring relationship between two tiles.
@@ -31,6 +41,19 @@ public class PlayerBoard {
         .map(t -> t.getValue().neighborPosition(t.getKey()))
         .flatMap(List::stream)
         .filter(t -> !board.containsKey(t))
+        .collect(Collectors.toSet());
+  }
+
+  // TODO : remove this method maybe
+  public Set<TileCoord> getAllNeighborAsSameLandscape(TileCoord tileCoord) {
+    var tile = board.get(tileCoord);
+    return tile.neighborPosition(tileCoord).stream()
+        .filter(board::containsKey)
+        .filter(
+            neighborCoord -> {
+              var neighborTile = board.get(neighborCoord);
+              return neighborTile.landscape() == tile.landscape();
+            })
         .collect(Collectors.toSet());
   }
 
@@ -89,5 +112,14 @@ public class PlayerBoard {
    */
   public Map<TileCoord, Tile> board() {
     return Map.copyOf(board);
+  }
+
+  /**
+   * Returns the score of the player.
+   *
+   * @return int the score of the player
+   */
+  public int score() {
+    return score;
   }
 }
