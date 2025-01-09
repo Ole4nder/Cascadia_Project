@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public record ZenInteraction(ApplicationContext context, int height, int width)
+public record ZenInteractionSquare(ApplicationContext context, int height, int width)
     implements Interaction {
 
-  public ZenInteraction {
+  public ZenInteractionSquare {
     Objects.requireNonNull(context);
   }
 
-  public ZenInteraction(ApplicationContext context) {
+  public ZenInteractionSquare(ApplicationContext context) {
     this(context, context.getScreenInfo().height(), context.getScreenInfo().width());
   }
 
