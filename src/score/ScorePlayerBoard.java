@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ScorePlayerBoard {
 
-  public static int findLargestLandscape(Map<TileCoord, Tile> board) {
+  public static Map<TileLandscape, Integer> findLargestLandscape(Map<TileCoord, Tile> board) {
     Set<TileCoord> visited = new HashSet<>();
     Map<TileLandscape, Integer> landscapeSize = new HashMap<>();
 
@@ -20,7 +20,7 @@ public class ScorePlayerBoard {
       }
     }
     // find the largest landscape
-    return landscapeSize.values().stream().max(Integer::compareTo).orElse(0);
+    return landscapeSize;
   }
 
   private static int exploreConnectedLandscape(

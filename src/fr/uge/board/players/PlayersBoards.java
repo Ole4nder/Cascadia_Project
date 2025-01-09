@@ -1,8 +1,8 @@
 package fr.uge.board.players;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import score.ScorePlayerBoard;
 
 /** Represent all players boards for the game. */
@@ -19,21 +19,18 @@ public class PlayersBoards {
     playersBoardsList.add(playerBoard);
   }
 
-  public void updateScoreForPlayers() {
-    var finalBestScore =
-        playersBoardsList.stream()
-            .peek(
-                playerBoard ->
-                    playerBoard.updateScore(
-                        ScorePlayerBoard.findLargestLandscape(playerBoard.board())))
-            .mapToInt(PlayerBoard::score)
-            .max()
-            .orElse(0);
+  private List<Integer> getScoreBoardForALlPlayers() {
+    return playersBoardsList.stream()
+        .map(PlayerBoard::board)
+        .map(ScorePlayerBoard::findLargestLandscape)
+        .map(landscapeSizes -> landscapeSizes.values().stream().max(Integer::compareTo).orElse(0))
+        .collect(Collectors.toList());
+  }
 
-    playersBoardsList.stream()
-        .filter(playerBoard -> playerBoard.score() == finalBestScore)
-        .findFirst()
-        .ifPresent(playerBoard -> playerBoard.updateScore(finalBestScore));
+  private void updateScoreBoard() {
+    var scores = getScoreBoardForALlPlayers();
+    IntStream.range(0, playersBoardsList.size())
+        .forEach(i -> playersBoardsList.get(i).updateScore(scores.get(i)));
   }
 
   /**
