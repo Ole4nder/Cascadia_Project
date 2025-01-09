@@ -4,6 +4,8 @@ import com.github.forax.zen.Application;
 import fr.uge.animal.Animals;
 import fr.uge.board.players.PlayerBoard;
 import fr.uge.graphic.GraphicSquareZen;
+import fr.uge.stack.StackList;
+import fr.uge.stack.StackTileToken;
 import fr.uge.tile.*;
 import java.awt.*;
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
 public class Main {
   public static void main(String[] args) {
     Application.run(
-        Color.WHITE,
+        Color.DARK_GRAY,
         applicationContext -> {
           var graphic = new GraphicSquareZen(applicationContext);
           graphic.drawCoordToPutTile(
@@ -40,6 +42,12 @@ public class Main {
               player.getMaxX(),
               player.getMinY(),
               player.getMaxY());
+          var stack = new StackList();
+          stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.BEAR));
+            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.ELK));
+            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.SALMON));
+            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.FOX));
+          graphic.drawOptionTileToken(stack);
         });
     //    var start =
     //        new InitGame(

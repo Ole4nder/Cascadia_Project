@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /** Represents a graphic terminal to display the game board. */
-public class GraphicTerminal implements Graphic {
+public final class GraphicTerminal implements Graphic {
   private static final String EMPTY_TILE =
       """
           +-----+

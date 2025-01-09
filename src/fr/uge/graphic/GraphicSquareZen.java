@@ -5,7 +5,6 @@ import fr.uge.stack.StackList;
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -58,23 +57,43 @@ public record GraphicSquareZen(ApplicationContext context, int height, int width
   }
 
   private void drawTileBorder(Graphics2D graphics2D, int centerX, int centerY) {
-    graphics2D.draw(new Rectangle2D.Double(centerX, centerY, PADDING_SQUARE, PADDING_SQUARE));
+    graphics2D.drawRect(centerX, centerY, PADDING_SQUARE, PADDING_SQUARE);
   }
 
+  /**
+   * Whe don't need to implement this method for the use zen6 so we just return because the player
+   * say how to put token with default value on the tile board
+   */
   @Override
   public void drawTileToTokenAndTile(List<Tile> tiles) {}
 
   @Override
   public void drawOptionTileToken(StackList option) {
+    var x = 0;
     for (var optionTileToken : option.optionTileTokenList()) {
+      int finalX = x;
       context.renderFrame(
           graphics2D -> {
-            graphics2D.setColor(Color.BLUE);
+            graphics2D.setColor(Color.CYAN);
+            drawTileBorder(graphics2D, PADDING_SQUARE + finalX, PADDING_SQUARE);
+            drawTileDetails(
+                graphics2D, optionTileToken.tile(), PADDING_SQUARE + finalX, PADDING_SQUARE);
+            graphics2D.setColor(Color.ORANGE);
             graphics2D.drawString(
-                optionTileToken.tile().toString(), width / 2, height / 2 + PADDING_TEXT_WIDTH * 2);
+                "Token :", PADDING_SQUARE + finalX, PADDING_SQUARE + PADDING_TEXT_WIDTH * 8);
+
             graphics2D.drawString(
-                optionTileToken.token().getName(), width / 2, height / 2 + PADDING_TEXT_WIDTH * 3);
+                optionTileToken.token().getName(),
+                PADDING_SQUARE + finalX,
+                PADDING_SQUARE + PADDING_TEXT_WIDTH * 9);
+            graphics2D.setColor(Color.BLACK);
+            graphics2D.drawRect(
+                PADDING_SQUARE + finalX,
+                PADDING_SQUARE + PADDING_SQUARE,
+                PADDING_SQUARE,
+                PADDING_SQUARE);
           });
+      x += PADDING_SQUARE;
     }
   }
 
@@ -84,13 +103,11 @@ public record GraphicSquareZen(ApplicationContext context, int height, int width
       context.renderFrame(
           graphics2D -> {
             graphics2D.setColor(Color.RED);
-            // Cast to double to avoid integer division
-            graphics2D.draw(
-                new Rectangle2D.Double(
-                    (double) width / 2 + tile.x() * PADDING_SQUARE,
-                    (double) height / 2 + tile.y() * PADDING_SQUARE,
-                    PADDING_SQUARE,
-                    PADDING_SQUARE));
+            graphics2D.drawRect(
+                width / 2 + tile.x() * PADDING_SQUARE,
+                height / 2 + tile.y() * PADDING_SQUARE,
+                PADDING_SQUARE,
+                PADDING_SQUARE);
           });
     }
   }
