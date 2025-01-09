@@ -63,7 +63,8 @@ public class Game {
   /** Players take turns to play. */
   public void playerTurns() {
     for (var player : initGame.playersBoards().playerBoardsList()) {
-      graphic.drawGameBoard(player.board(), player.getMinX(), player.getMaxX(), player.getMinY(), player.getMaxY());
+      graphic.drawGameBoard(
+          player.board(), player.getMinX(), player.getMaxX(), player.getMinY(), player.getMaxY());
       var option = asOptionTileTokenPlayer();
       updateOption(option);
       asTileTokenPlayer(player, option);
@@ -188,12 +189,12 @@ public class Game {
     while (true) {
       var overpopulationStatus = stackOverpopulation.asOverpopulation();
       if (overpopulationStatus == 3) {
-        drawTokens(3); // Gérer la surpopulation pour 3 tokens identiques
-        break; // Traiter la surpopulation pour 3 uniquement une fois
+        drawTokens(3); // Manage overpopulation for 3 identical tokens
+        break; // Treat once overpopulation for 3 identical tokens
       } else if (overpopulationStatus == 4) {
-        drawTokens(4); // Gérer la surpopulation pour 4 tokens identiques
+        drawTokens(4); // Manage overpopulation for 4 identical tokens
       } else {
-        break; // Pas de surpopulation
+        break; // No overpopulation
       }
     }
   }
