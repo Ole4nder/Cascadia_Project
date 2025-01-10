@@ -158,9 +158,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
           graphics2D.drawString(
               "Do you want to change the option ? (yes or no)", width - 400, height / 15);
           graphics2D.setColor(Color.BLACK);
-          graphics2D.drawRect(width - 400, height / 10, 50, 50);
           graphics2D.drawString("yes", width - 395, height / 10 + 30);
-          graphics2D.drawRect(width - 350, height / 10, 50, 50);
           graphics2D.drawString("no", width - 345, height / 10 + 30);
         });
     var event = context.pollOrWaitEvent(10);
@@ -169,29 +167,15 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
         ;
       switch (event) {
         case KeyboardEvent ke -> {
-          if (ke.key() == KeyboardEvent.Key.Y) {
-            return true;
-          } else if (ke.key() == KeyboardEvent.Key.N) {
-            return false;
-          }
+          return checkIfWantChangeOption(ke);
         }
-        case PointerEvent pe -> {
-          if (pe.action() == PointerEvent.Action.POINTER_DOWN) {
-            if (pe.location().x() >= width - 400
-                && pe.location().x() <= width - 350
-                && pe.location().y() >= height / 10
-                && pe.location().y() <= height / 10 + 50) {
-              return true;
-            } else if (pe.location().x() >= width - 350
-                && pe.location().x() <= width - 300
-                && pe.location().y() >= height / 10
-                && pe.location().y() <= height / 10 + 50) {
-              return false;
-            }
-          }
-        }
+        case PointerEvent _ -> {}
       }
       event = context.pollOrWaitEvent(10);
     }
+  }
+
+  private boolean checkIfWantChangeOption(KeyboardEvent ke) {
+    return ke.key() == KeyboardEvent.Key.Y || ke.key() == KeyboardEvent.Key.N;
   }
 }
