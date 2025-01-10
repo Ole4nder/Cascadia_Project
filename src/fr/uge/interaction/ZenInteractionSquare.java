@@ -20,6 +20,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
   private static final int TOP_LEFT_Y_DRAW = 60; // Corner top left (y)
   private static final int BOTTOM_RIGHT_X = 120; // Bottom right corner (x)
   private static final int BOTTOM_RIGHT_Y = 180; // Bottom right corner (y)
+  private static final int PADDING_SQUARE = 60; // Bottom right corner (x)
 
   public ZenInteractionSquare {
     Objects.requireNonNull(context);
@@ -29,7 +30,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
     this(context, context.getScreenInfo().height(), context.getScreenInfo().width());
   }
 
-  private static int positionOption(PointerEvent pe, int numberOption) {
+  private int positionOption(PointerEvent pe, int numberOption) {
     if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
       return -1;
     }
@@ -100,11 +101,52 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
 
   @Override
   public TileCoord choosePutTile(Set<TileCoord> tileCoords, Graphic graphic) {
+    graphic.drawCoordToPutTile(tileCoords);
+    var event = context.pollOrWaitEvent(10);
+    while (true) {
+      for (; event == null; event = context.pollOrWaitEvent(10))
+        ;
+      switch (event) {
+        case KeyboardEvent _ -> {}
+        case PointerEvent pe -> {
+          return positionTileToPut(pe, tileCoords);
+        }
+      }
+      event = context.pollOrWaitEvent(10);
+    }
+  }
+
+  private TileCoord positionTileToPut(PointerEvent pe, Set<TileCoord> tileCoords) {
+    if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
+      return null;
+    }
+
+    return tileCoords.stream()
+        .filter(
+            tileCoord -> {
+              var x = tileCoord.x() * PADDING_SQUARE + width / 2;
+              var y = tileCoord.y() * PADDING_SQUARE + height / 2;
+              return pe.location().x() >= x
+                  && pe.location().x() <= x + PADDING_SQUARE
+                  && pe.location().y() >= y
+                  && pe.location().y() <= y + PADDING_SQUARE;
+            })
+        .findFirst()
+        .orElse(null);
+  }
+
+  // TODO : Implement this method
+  private Tile positionTileToToken(PointerEvent pe, List<Tile> tiles) {
+
+    if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
+      return null;
+    }
     return null;
   }
 
   @Override
   public Tile choosePutToken(List<Tile> tiles, Graphic graphic) {
+    graphic.drawTileToTokenAndTile(tiles);
     return null;
   }
 

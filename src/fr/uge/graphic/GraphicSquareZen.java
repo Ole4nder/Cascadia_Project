@@ -36,7 +36,6 @@ public record GraphicSquareZen(ApplicationContext context, int height, int width
           Tile tile = tilesBoard.get(tmpCord);
           int centerX = width / 2 + x * PADDING_SQUARE;
           int centerY = height / 2 + y * PADDING_SQUARE;
-
           context.renderFrame(
               graphics2D -> {
                 graphics2D.setColor(Color.BLACK);
@@ -81,7 +80,6 @@ public record GraphicSquareZen(ApplicationContext context, int height, int width
             graphics2D.setColor(Color.ORANGE);
             graphics2D.drawString(
                 "Token :", PADDING_SQUARE + finalX, PADDING_SQUARE + PADDING_TEXT_WIDTH * 8);
-
             graphics2D.drawString(
                 optionTileToken.token().getName(),
                 PADDING_SQUARE + finalX,
