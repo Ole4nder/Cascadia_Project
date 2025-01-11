@@ -73,14 +73,18 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
     return stackList.optionTileTokenList().get(hasChosenOption);
   }
 
-  @Override
-  public String choosePutTileToken() {
+  private void drawInfoTOChosePutTileOrToken() {
     context.renderFrame(
         graphics2D -> {
           graphics2D.setColor(Color.GREEN);
           graphics2D.drawString("Choose with put tile or token first", width - 400, height / 15);
           graphics2D.drawString("Press T for tile or K for token", width - 400, height / 10);
         });
+  }
+
+  @Override
+  public String choosePutTileToken() {
+    drawInfoTOChosePutTileOrToken();
     var event = context.pollOrWaitEvent(10);
     while (true) {
       for (; event == null; event = context.pollOrWaitEvent(10))
@@ -120,7 +124,6 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
     if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
       return null;
     }
-
     return tileCoords.stream()
         .filter(
             tileCoord -> {
@@ -137,7 +140,6 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
 
   // TODO : Implement this method
   private Tile positionTileToToken(PointerEvent pe, List<Tile> tiles) {
-
     if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
       return null;
     }
@@ -147,20 +149,23 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
   @Override
   public Tile choosePutToken(List<Tile> tiles, Graphic graphic) {
     graphic.drawTileToTokenAndTile(tiles);
-    return null;
+    var event = context.pollOrWaitEvent(10);
+    while (true) {
+      for (; event == null; event = context.pollOrWaitEvent(10))
+        ;
+      switch (event) {
+        case KeyboardEvent _ -> {}
+        case PointerEvent pe -> {
+          return positionTileToToken(pe, tiles);
+        }
+      }
+      event = context.pollOrWaitEvent(10);
+    }
   }
 
   @Override
   public boolean wantChangeOption() {
-    context.renderFrame(
-        graphics2D -> {
-          graphics2D.setColor(Color.GREEN);
-          graphics2D.drawString(
-              "Do you want to change the option ? (yes or no)", width - 400, height / 15);
-          graphics2D.setColor(Color.BLACK);
-          graphics2D.drawString("yes", width - 395, height / 10 + 30);
-          graphics2D.drawString("no", width - 345, height / 10 + 30);
-        });
+    drawInfoChangeOption(); // Draw the information
     var event = context.pollOrWaitEvent(10);
     while (true) {
       for (; event == null; event = context.pollOrWaitEvent(10))
@@ -173,6 +178,18 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
       }
       event = context.pollOrWaitEvent(10);
     }
+  }
+
+  private void drawInfoChangeOption() {
+    context.renderFrame(
+        graphics2D -> {
+          graphics2D.setColor(Color.GREEN);
+          graphics2D.drawString(
+              "Do you want to change the option ? (yes or no)", width - 400, height / 15);
+          graphics2D.setColor(Color.BLACK);
+          graphics2D.drawString("yes", width - 395, height / 10 + 30);
+          graphics2D.drawString("no", width - 345, height / 10 + 30);
+        });
   }
 
   private boolean checkIfWantChangeOption(KeyboardEvent ke) {
