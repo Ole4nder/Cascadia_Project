@@ -24,7 +24,7 @@
         <mkdir dir="${dist}"/>
         <jar jarfile="${dist}/Cascadia.jar" basedir="${build}">
             <manifest>
-                <attribute name="Main-Class" value="fr.uge.main"/>
+                <attribute name="Main-Class" value="fr.uge.main.Main"/>
             </manifest>
         </jar>
     </target>
