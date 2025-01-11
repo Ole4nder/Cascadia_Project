@@ -35,7 +35,7 @@ public class Main {
                   InitGame.chooseNumberOfPlayers(), InitGame.chooseGameVariant(), BoardType.SQUARE);
           var game =
               gameInit(
-                  start, InitGame.chooseGraphicVariant(applicationCOntext), applicationCOntext);
+                  start, InitGame.chooseGraphicVariant(), applicationCOntext);
           try {
             game.startGame().initGame();
           } catch (IOException e) {

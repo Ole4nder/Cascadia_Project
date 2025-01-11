@@ -26,15 +26,6 @@ public class AnimalCards {
   }
 
   /**
-   * Return a copy of the map.
-   *
-   * @return Map of key animals and value a set of animal cards.
-   */
-  public Map<Animals, HashSet<AnimalCard>> animalMap() {
-    return Map.copyOf(animalMap);
-  }
-
-  /**
    * Get variant name from file and turn them into TypeCard.
    *
    * @param variant the variant name

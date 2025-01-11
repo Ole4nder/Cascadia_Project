@@ -22,7 +22,7 @@ public class DepartTileBag {
   /**
    * Remove a depart tile.
    *
-   * @param departTile the depart tile to remove.
+   * @param departTile the departure tile to remove.
    */
   public void remove(DepartTile departTile) {
     Objects.requireNonNull(departTile);
@@ -38,7 +38,7 @@ public class DepartTileBag {
     return List.copyOf(departTileBag);
   }
 
-  /** Shuffle the depart tiles bag. */
+  /** Shuffle the departure tiles bag. */
   public void shuffle() {
     Collections.shuffle(departTileBag);
   }
