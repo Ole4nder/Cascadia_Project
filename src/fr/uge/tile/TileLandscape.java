@@ -1,5 +1,6 @@
 package fr.uge.tile;
 
+/** Enum representing the different landscapes of a tile. */
 public enum TileLandscape {
   RIVER("river"),
   SWAMP("swamp"),

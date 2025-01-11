@@ -155,7 +155,7 @@ public class Game {
    * Get the tiles where a player can put a token.
    *
    * @param playerBoard, the player who wants to put a token.
-   * @return List<Tile>, the tiles where a player can put a token.
+   * @return the tiles where the player can put a token.
    */
   public List<Tile> wherePutToken(PlayerBoard playerBoard) {
     return playerBoard.board().values().stream()
