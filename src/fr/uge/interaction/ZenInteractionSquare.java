@@ -166,6 +166,15 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
       case KeyboardEvent.Key.C -> tiles.get(2);
       case KeyboardEvent.Key.D -> tiles.get(3);
       case KeyboardEvent.Key.E -> tiles.get(4);
+      case KeyboardEvent.Key.F -> tiles.get(5);
+      case KeyboardEvent.Key.G -> tiles.get(6);
+      case KeyboardEvent.Key.H -> tiles.get(7);
+      case KeyboardEvent.Key.I -> tiles.get(8);
+      case KeyboardEvent.Key.J -> tiles.get(9);
+      case KeyboardEvent.Key.K -> tiles.get(10);
+      case KeyboardEvent.Key.L -> tiles.get(11);
+      case KeyboardEvent.Key.M -> tiles.get(12);
+      case KeyboardEvent.Key.N -> tiles.get(13);
       default -> null;
     };
   }
