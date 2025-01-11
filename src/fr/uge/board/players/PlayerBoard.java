@@ -11,9 +11,9 @@ public class PlayerBoard {
   private int score = 0;
 
   /**
-   * Update the fr.uge.score of the player with a fr.uge.score.
+   * Update the score of the player with a score.
    *
-   * @param score the fr.uge.score to add
+   * @param score the score to add
    */
   public void updateScore(int score) {
     this.score += score;
@@ -41,19 +41,6 @@ public class PlayerBoard {
         .map(t -> t.getValue().neighborPosition(t.getKey()))
         .flatMap(List::stream)
         .filter(t -> !board.containsKey(t))
-        .collect(Collectors.toSet());
-  }
-
-  // TODO : remove this method maybe
-  public Set<TileCoord> getAllNeighborAsSameLandscape(TileCoord tileCoord) {
-    var tile = board.get(tileCoord);
-    return tile.neighborPosition(tileCoord).stream()
-        .filter(board::containsKey)
-        .filter(
-            neighborCoord -> {
-              var neighborTile = board.get(neighborCoord);
-              return neighborTile.landscape() == tile.landscape();
-            })
         .collect(Collectors.toSet());
   }
 
@@ -115,9 +102,9 @@ public class PlayerBoard {
   }
 
   /**
-   * Returns the fr.uge.score of the player.
+   * Returns the score of the player.
    *
-   * @return int the fr.uge.score of the player
+   * @return int the score of the player
    */
   public int score() {
     return score;

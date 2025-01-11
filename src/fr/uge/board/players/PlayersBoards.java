@@ -1,12 +1,11 @@
 package fr.uge.board.players;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import fr.uge.game.GameType;
 import fr.uge.score.ScoreCard;
 import fr.uge.score.ScorePlayerBoard;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /** Represent all players boards for the game. */
 public class PlayersBoards {
@@ -35,9 +34,11 @@ public class PlayersBoards {
     IntStream.range(0, playersBoardsList.size())
         .forEach(i -> playersBoardsList.get(i).updateScore(scores.get(i)));
     if (gameType == GameType.FAMILY) {
-      playersBoardsList.forEach(ScoreCard::scoreFamilyCard);
+      playersBoardsList.forEach(
+          playerBoard -> playerBoard.updateScore(ScoreCard.scoreFamilyCard(playerBoard)));
     } else {
-      playersBoardsList.forEach(ScoreCard::scoreIntermediateCard);
+      playersBoardsList.forEach(
+          playerBoard -> playerBoard.updateScore(ScoreCard.scoreIntermediateCard(playerBoard)));
     }
   }
 

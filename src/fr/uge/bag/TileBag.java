@@ -51,20 +51,6 @@ public class TileBag {
   }
 
   /**
-   * Calculate the total of tiles required for the game.
-   *
-   * @return number of tiles
-   */
-  public int tileGame(int playersNumbers) {
-    return MAX_TILE - (playersNumbers * 20 + 3);
-  }
-
-  /** Removing not used tiles from the list in order to play with the right amount. */
-  private void amountTileTypeGame(int playersNumbers) {
-    tileBag.subList(0, tileGame(playersNumbers)).clear();
-  }
-
-  /**
    * Return a copy of the current list.
    *
    * @return List of tiles
