@@ -21,6 +21,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
   private static final int BOTTOM_RIGHT_X = 120; // Bottom right corner (x)
   private static final int BOTTOM_RIGHT_Y = 180; // Bottom right corner (y)
   private static final int PADDING_SQUARE = 60; // Bottom right corner (x)
+  private static final KeyboardEvent.Key QUIT_KEY = KeyboardEvent.Key.Q;
 
   public ZenInteractionSquare {
     Objects.requireNonNull(context);
@@ -91,10 +92,14 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
         ;
       switch (event) {
         case KeyboardEvent ke -> {
-          if (ke.key() == KeyboardEvent.Key.T) {
-            return "tile";
-          } else if (ke.key() == KeyboardEvent.Key.K) {
-            return "token";
+          checkQuitProgram(ke);
+          switch (ke.key()) {
+            case KeyboardEvent.Key.T -> {
+              return "tile";
+            }
+            case KeyboardEvent.Key.K -> {
+              return "token";
+            }
           }
         }
         case PointerEvent _ -> {}
@@ -111,7 +116,9 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
       for (; event == null; event = context.pollOrWaitEvent(10))
         ;
       switch (event) {
-        case KeyboardEvent _ -> {}
+        case KeyboardEvent ke -> {
+          checkQuitProgram(ke);
+        }
         case PointerEvent pe -> {
           return positionTileToPut(pe, tileCoords);
         }
@@ -190,6 +197,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
         ;
       switch (event) {
         case KeyboardEvent ke -> {
+          checkQuitProgram(ke);
           tile = positionTileToToken(ke, tiles);
         }
         case PointerEvent _ -> {}
@@ -230,5 +238,11 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
 
   private boolean checkIfWantChangeOption(KeyboardEvent ke) {
     return ke.key() == KeyboardEvent.Key.Y || ke.key() == KeyboardEvent.Key.N;
+  }
+
+  private void checkQuitProgram(KeyboardEvent ke) {
+    if (ke.key() == QUIT_KEY) {
+      System.exit(0);
+    }
   }
 }
