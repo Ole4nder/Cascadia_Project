@@ -111,6 +111,7 @@ public class Game {
     Tile tileToken;
     switch (interaction.choosePutTileToken()) {
       case "tile" -> {
+
         tileCoord = interaction.choosePutTile(playerBoard.getAllNeighborCord(), graphic);
         playerBoard.add(tileCoord, option.tile());
         graphic.drawTileToTokenAndTile(wherePutToken(playerBoard));

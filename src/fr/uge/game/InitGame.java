@@ -1,5 +1,6 @@
 package fr.uge.game;
 
+import com.github.forax.zen.ApplicationContext;
 import fr.uge.animal.Animals;
 import fr.uge.animal.card.AnimalCards;
 import fr.uge.bag.AnimalsTokenBag;
@@ -76,6 +77,26 @@ public record InitGame(
       default -> {
         System.out.println("Invalid input! Please enter a valid variant.");
         return chooseGameVariant();
+      }
+    }
+  }
+
+  public static String chooseGraphicVariant(ApplicationContext applicationContext) {
+    System.out.println(
+        "Choose the graphic variant:\n - Type '1', 'terminal', or 't' for Terminal\n - Type '2', 'zen', 'z', or 'zen' for Zen:");
+    var scanner = new Scanner(System.in);
+    var input = scanner.nextLine().trim().toLowerCase();
+
+    switch (input) {
+      case "terminal", "t", "1" -> {
+        return "terminal";
+      }
+      case "zen", "z", "2" -> {
+        return "zen";
+      }
+      default -> {
+        System.out.println("Invalid input! Please enter a valid variant.");
+        return chooseGraphicVariant(applicationContext);
       }
     }
   }

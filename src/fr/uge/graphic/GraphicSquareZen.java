@@ -24,10 +24,18 @@ public record GraphicSquareZen(ApplicationContext context, int height, int width
     this(context, context.getScreenInfo().height(), context.getScreenInfo().width());
   }
 
+  private void resteScreen() {
+    context.renderFrame(
+        graphics2D -> {
+          graphics2D.setColor(Color.DARK_GRAY);
+          graphics2D.fillRect(0, 0, width, height);
+        });
+  }
+
   @Override
   public void drawGameBoard(
       Map<TileCoord, Tile> tilesBoard, int minX, int maxX, int minY, int maxY) {
-
+    resteScreen();
     for (int x = minX; x <= maxX; x++) {
       for (int y = minY; y <= maxY; y++) {
         TileCoord tmpCord = new TileCoord(x, y);

@@ -138,29 +138,57 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
         .orElse(null);
   }
 
-  // TODO : Implement this method
-  private Tile positionTileToToken(PointerEvent pe, List<Tile> tiles) {
-    if (pe.action() != PointerEvent.Action.POINTER_DOWN) {
-      return null;
-    }
-    return null;
+  private void drawInfoTileToPutToken(List<Tile> tiles) {
+    context.renderFrame(
+        graphics2D -> {
+          graphics2D.drawString(
+              "Choose a Tile to put the token on between 1 and " + tiles.size(),
+              width - 400,
+              height / 15);
+          var letter = 'A';
+          var i = 0;
+          for (var tile : tiles) {
+            graphics2D.drawString(
+                letter + " : " + tile.animals1().getName() + " " + tile.animals2().getName(),
+                width - 400,
+                height / 10 + 30 + i * 30);
+            letter++;
+            i++;
+          }
+        });
+  }
+
+  // Terrible function, but it's the only way to do it
+  private Tile positionTileToToken(KeyboardEvent ke, List<Tile> tiles) {
+    System.out.println(ke.key().name());
+    return switch (ke.key()) {
+      case KeyboardEvent.Key.A -> tiles.get(0);
+      case KeyboardEvent.Key.B -> tiles.get(1);
+      case KeyboardEvent.Key.C -> tiles.get(2);
+      case KeyboardEvent.Key.D -> tiles.get(3);
+      case KeyboardEvent.Key.E -> tiles.get(4);
+      default -> null;
+    };
   }
 
   @Override
   public Tile choosePutToken(List<Tile> tiles, Graphic graphic) {
     graphic.drawTileToTokenAndTile(tiles);
-    var event = context.pollOrWaitEvent(10);
-    while (true) {
+    drawInfoTileToPutToken(tiles);
+    var event = context().pollOrWaitEvent(100000);
+    Tile tile = null;
+    while (tile == null) {
       for (; event == null; event = context.pollOrWaitEvent(10))
         ;
       switch (event) {
-        case KeyboardEvent _ -> {}
-        case PointerEvent pe -> {
-          return positionTileToToken(pe, tiles);
+        case KeyboardEvent ke -> {
+          tile = positionTileToToken(ke, tiles);
         }
+        case PointerEvent _ -> {}
       }
       event = context.pollOrWaitEvent(10);
     }
+    return tile;
   }
 
   @Override

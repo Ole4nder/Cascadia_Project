@@ -3,6 +3,9 @@ package fr.uge.board.players;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import fr.uge.game.GameType;
+import fr.uge.score.ScoreCard;
 import fr.uge.score.ScorePlayerBoard;
 
 /** Represent all players boards for the game. */
@@ -27,10 +30,19 @@ public class PlayersBoards {
         .collect(Collectors.toList());
   }
 
-  private void updateScoreBoard() {
+  public void updateScoreBoard(GameType gameType) {
     var scores = getScoreBoardForALlPlayers();
     IntStream.range(0, playersBoardsList.size())
         .forEach(i -> playersBoardsList.get(i).updateScore(scores.get(i)));
+    if (gameType == GameType.FAMILY) {
+      playersBoardsList.forEach(ScoreCard::scoreFamilyCard);
+    } else {
+      playersBoardsList.forEach(ScoreCard::scoreIntermediateCard);
+    }
+  }
+
+  public String printScoreBoard() {
+    return playersBoardsList.stream().map(PlayerBoard::toString).collect(Collectors.joining("\n"));
   }
 
   /**
