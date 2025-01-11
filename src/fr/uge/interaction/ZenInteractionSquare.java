@@ -160,7 +160,6 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
 
   // Terrible function, but it's the only way to do it
   private Tile positionTileToToken(KeyboardEvent ke, List<Tile> tiles) {
-    System.out.println(ke.key().name());
     return switch (ke.key()) {
       case KeyboardEvent.Key.A -> tiles.get(0);
       case KeyboardEvent.Key.B -> tiles.get(1);
