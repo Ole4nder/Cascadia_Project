@@ -4,6 +4,7 @@ import com.github.forax.zen.Application;
 import fr.uge.animal.Animals;
 import fr.uge.board.players.PlayerBoard;
 import fr.uge.graphic.GraphicSquareZen;
+import fr.uge.interaction.ZenInteractionSquare;
 import fr.uge.stack.StackList;
 import fr.uge.stack.StackTileToken;
 import fr.uge.tile.*;
@@ -16,7 +17,7 @@ public class Main {
         Color.DARK_GRAY,
         applicationContext -> {
           var graphic = new GraphicSquareZen(applicationContext);
-          graphic.drawCoordToPutTile(
+          var setCoord =
               Set.of(
                   new TileCoord(0, -1),
                   new TileCoord(1, 1),
@@ -25,7 +26,8 @@ public class Main {
                   new TileCoord(-1, 2),
                   new TileCoord(-1, 1),
                   new TileCoord(-1, 0),
-                  new TileCoord(1, 0)));
+                  new TileCoord(1, 0));
+          graphic.drawCoordToPutTile(setCoord);
           var player = new PlayerBoard();
           player.add(
               new TileCoord(0, 0),
@@ -43,11 +45,29 @@ public class Main {
               player.getMinY(),
               player.getMaxY());
           var stack = new StackList();
-          stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.BEAR));
-            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.ELK));
-            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.SALMON));
-            stack.add(new StackTileToken(new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT), Animals.FOX));
-          graphic.drawOptionTileToken(stack);
+          stack.add(
+              new StackTileToken(
+                  new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT),
+                  Animals.BEAR));
+          stack.add(
+              new StackTileToken(
+                  new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT),
+                  Animals.ELK));
+          stack.add(
+              new StackTileToken(
+                  new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT),
+                  Animals.SALMON));
+          stack.add(
+              new StackTileToken(
+                  new SquareTile(TileLandscape.FOREST, Animals.BEAR, Animals.ELK, Animals.DEFAULT),
+                  Animals.FOX));
+          // graphic.drawOptionTileToken(stack);
+          var stackOption =
+              new ZenInteractionSquare(applicationContext).choiceOption(stack, graphic);
+          while (true) {
+            var tileToPutTOken = new ZenInteractionSquare(applicationContext).wantChangeOption();
+            System.out.println(tileToPutTOken);
+          }
         });
     //    var start =
     //        new InitGame(

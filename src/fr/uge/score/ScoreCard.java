@@ -1,4 +1,4 @@
-package score;
+package fr.uge.score;
 
 import fr.uge.board.players.PlayerBoard;
 

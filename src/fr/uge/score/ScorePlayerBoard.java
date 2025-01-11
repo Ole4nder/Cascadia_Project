@@ -1,4 +1,4 @@
-package score;
+package fr.uge.score;
 
 import fr.uge.tile.Tile;
 import fr.uge.tile.TileCoord;

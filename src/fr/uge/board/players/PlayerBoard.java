@@ -11,9 +11,9 @@ public class PlayerBoard {
   private int score = 0;
 
   /**
-   * Update the score of the player with a score.
+   * Update the fr.uge.score of the player with a fr.uge.score.
    *
-   * @param score the score to add
+   * @param score the fr.uge.score to add
    */
   public void updateScore(int score) {
     this.score += score;
@@ -115,9 +115,9 @@ public class PlayerBoard {
   }
 
   /**
-   * Returns the score of the player.
+   * Returns the fr.uge.score of the player.
    *
-   * @return int the score of the player
+   * @return int the fr.uge.score of the player
    */
   public int score() {
     return score;

@@ -3,7 +3,7 @@ package fr.uge.board.players;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import score.ScorePlayerBoard;
+import fr.uge.score.ScorePlayerBoard;
 
 /** Represent all players boards for the game. */
 public class PlayersBoards {
