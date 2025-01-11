@@ -139,8 +139,6 @@ public record InitGame(
       String line;
       while ((line = reader.readLine()) != null) {
         var parts = line.split(" : ");
-        // Partie à changer pour les hexagones
-        // TODO a améliorer pour prendre en compte le nombre de joueurs
         for (int i = 0; i < 17; i++) {
           tileBag.add(
               (new SquareTile(
@@ -195,10 +193,6 @@ public record InitGame(
    */
   public void initGame() throws IOException {
     addAllDepartTileToBag();
-    /*
-    On a besoin de 85 tuiles en tout, avec 5 habitats différents, donc 17 tuiles de chaque habitat.
-    ATTENTION cette valeur est uniquement vrai pour la phase 1 du jeu.
-     */
     addAllTileToBag();
     animalTokenBag.addAllToken();
     addAllPlayerAndDepartTile();
