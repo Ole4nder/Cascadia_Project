@@ -26,7 +26,7 @@ public class Main {
     };
   }
 
-  public static void main() {
+  public static void main(String[] args) {
     Application.run(
         Color.DARK_GRAY,
         applicationCOntext -> {
