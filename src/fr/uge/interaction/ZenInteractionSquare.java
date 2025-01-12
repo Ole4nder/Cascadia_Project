@@ -79,7 +79,7 @@ public record ZenInteractionSquare(ApplicationContext context, int height, int w
         graphics2D -> {
           graphics2D.setColor(Color.GREEN);
           graphics2D.drawString("Choose with put tile or token first", width - 400, height / 15);
-          graphics2D.drawString("Press T for tile or K for token", width - 400, height / 10);
+          graphics2D.drawString("Press T for tile, K for token or Q to quit the program.", width - 400, height / 10);
         });
   }
 

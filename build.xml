@@ -1,26 +1,40 @@
 <project name="Cascadia" default="jar" basedir=".">
     <property name="src" location="src"/>
-    <property name="build" location="out"/>
+    <property name="build" location="classes"/>
     <property name="dist" location="."/>
-    <property name="lib" location="src/lib/"/>
+    <property name="lib" location="src/lib"/>
+    <property name="doc" location="docs/doc"/>
 
     <path id="dep.runtime">
         <fileset dir="${lib}" includes="*.jar"/>
     </path>
 
-    <target name="init">
-        <mkdir dir="${build}"/>
+    <target name="clean" description="clean up">
+        <echo>Nettoyage des dossiers...</echo>
+        <delete dir="${build}"/>
+        <delete file="${dist}/Cascadia.jar"/>
+        <echo>Nettoyage terminé !</echo>
     </target>
 
-    <target name="compile" depends="init" description="compile the source">
+    <target name="cleanJavadoc" description="clean javadoc directory">
+        <echo>Nettoyage des dossiers...</echo>
+        <delete dir="${doc}"/>
+        <echo>Nettoyage terminé !</echo>
+    </target>
+
+    <target name="compile" depends="clean" description="compile the source">
+        <echo>Compilation des fichiers sources...</echo>
+        <mkdir dir="${build}"/>
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
             <classpath>
                 <path refid="dep.runtime"/>
             </classpath>
         </javac>
+        <echo>Compilation terminée !</echo>
     </target>
 
     <target name="jar" depends="compile" description="create a jar file">
+        <echo>Création du fichier JAR...</echo>
         <mkdir dir="${dist}"/>
         <jar jarfile="${dist}/Cascadia.jar" basedir="${build}">
             <manifest>
@@ -28,20 +42,18 @@
                 <attribute name="Class-Path" value="src/lib/zen-6.0.jar"/>
             </manifest>
         </jar>
+        <echo>Fichier JAR créé ici : ${dist}/Cascadia.jar</echo>
     </target>
 
-    <target name="clean" description="clean up">
-        <delete dir="${build}"/>
-        <delete file="${dist}/Cascadia.jar"/>
-    </target>
-
-    <target name="javadoc" description="Generate the javadoc">
-        <mkdir dir="${dist}/docs/doc"/>
-        <javadoc destdir="${dist}/docs/doc">
+    <target name="javadoc" depends="cleanJavadoc" description="Generate the javadoc">
+        <echo>Génération de la documentation Javadoc...</echo>
+        <mkdir dir="${doc}"/>
+        <javadoc destdir="${doc}">
             <classpath>
                 <path refid="dep.runtime"/>
             </classpath>
             <fileset dir="${src}"/>
         </javadoc>
+        <echo>Documentation Javadoc générée dans ${doc}</echo>
     </target>
 </project>
