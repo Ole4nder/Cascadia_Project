@@ -105,7 +105,6 @@ public class Game {
    *
    * @param playerBoard the player who wants to choose a tile and a token.
    */
-  // TODO : correct this method
   private void asTileTokenPlayer(PlayerBoard playerBoard, StackTileToken option) {
     TileCoord tileCoord;
     Tile tileToken;
